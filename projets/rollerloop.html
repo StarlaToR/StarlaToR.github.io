@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="fr" data-titre-fr="RollerLoop · Antoine Mordant" data-titre-en="RollerLoop · Antoine Mordant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RollerLoop · Antoine Mordant</title>
+<meta name="description" content="Étude de cas : la caméra dynamique de RollerLoop, jeu de course en rollers sous Unreal Engine 5 sur PS5, et le support PS5 du moteur.">
+<meta property="og:title" content="RollerLoop · Antoine Mordant">
+<meta property="og:image" content="https://starlator.github.io/assets/img/rollerloop/poster-camera.webp">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="entete">
+  <div class="conteneur">
+    <a class="logo" href="../index.html">Antoine<span>.</span>M</a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="../index.html#projets"><span data-lang="fr">← Tous les projets</span><span data-lang="en">← All projects</span></a>
+      <div class="langues" role="group" aria-label="Langue / Language">
+        <button type="button" data-choix="fr" aria-pressed="true">FR</button>
+        <button type="button" data-choix="en" aria-pressed="false">EN</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="projet-tete">
+  <div class="conteneur">
+    <ul class="tags"><li>Unreal Engine 5.4</li><li>C++</li><li>Spring Arm</li><li>Data Assets</li><li>PS5</li></ul>
+    <h1>RollerLoop</h1>
+    <p class="chapo" data-lang="fr">Une caméra de course qui donne la sensation de vitesse sans jamais cacher la route.</p>
+    <p class="chapo" data-lang="en">A racing camera that sells the speed without ever hiding the road.</p>
+  </div>
+</section>
+
+<section class="projet-intro">
+  <div class="conteneur">
+    <figure class="media" style="margin:0">
+      <video src="../assets/video/rollerloop-camera.mp4" poster="../assets/img/rollerloop/poster-camera.webp" autoplay muted loop playsinline
+             aria-label="Extrait du premier niveau : virages, sauts et chutes"
+             data-aria-fr="Extrait du premier niveau : virages, sauts et chutes"
+             data-aria-en="First level excerpt: turns, jumps and drops"></video>
+    </figure>
+    <dl class="fiche">
+      <div><dt><span data-lang="fr">Contexte</span><span data-lang="en">Context</span></dt><dd><span data-lang="fr">Projet ISART d'un an, 2024 – 2025</span><span data-lang="en">One-year ISART project, 2024 – 2025</span></dd></div>
+      <div><dt><span data-lang="fr">Équipe</span><span data-lang="en">Team</span></dt><dd><span data-lang="fr">20 personnes, dont 5 programmeurs</span><span data-lang="en">20 people, including 5 programmers</span></dd></div>
+      <div><dt><span data-lang="fr">Plateformes</span><span data-lang="en">Platforms</span></dt><dd>PS5 · PC</dd></div>
+      <div><dt><span data-lang="fr">Mon rôle</span><span data-lang="en">My role</span></dt><dd><span data-lang="fr">La caméra, en binôme avec un game designer, et le support PS5 du moteur</span><span data-lang="en">The camera, paired with a game designer, and PS5 engine support</span></dd></div>
+      <a class="bouton principal" href="https://isart-digital.itch.io/rollerloop" target="_blank" rel="noopener"><span data-lang="fr">Jouer sur itch.io ↗</span><span data-lang="en">Play on itch.io ↗</span></a>
+    </dl>
+  </div>
+</section>
+
+<section class="section blanche">
+  <div class="conteneur duo">
+    <div class="prose">
+      <span class="surtitre"><span data-lang="fr">Le défi</span><span data-lang="en">The challenge</span></span>
+      <h2 style="color:var(--cacao);font-size:clamp(26px,3vw,36px)"><span data-lang="fr">Aller vite, et voir où l'on va</span><span data-lang="en">Go fast, and see where you're going</span></h2>
+      <p data-lang="fr">Dans RollerLoop, on enchaîne virages, drifts, grinds, sauts et chutes à plus de 250 km/h. Le joueur ne contrôle pas la caméra : un « drone » le suit automatiquement.</p>
+      <p data-lang="en">In RollerLoop, you chain turns, drifts, grinds, jumps and drops at over 250 km/h. The player doesn't control the camera: a "drone" follows them automatically.</p>
+      <p data-lang="fr">Elle devait donc <strong>montrer la route à l'avance</strong> tout en <strong>amplifiant la sensation de vitesse</strong>, deux objectifs qui tirent souvent en sens inverse. La réponse : maîtriser chaque axe de rotation et de déplacement, séparément.</p>
+      <p data-lang="en">So it had to <strong>show the road ahead</strong> while <strong>amplifying the sense of speed</strong>, two goals that often pull in opposite directions. The answer: control every rotation and movement axis, one by one.</p>
+    </div>
+    <figure>
+      <div class="media"><img src="../assets/img/rollerloop/schema-systeme.webp" width="694" height="522" loading="lazy" alt="Le système : un pivot sur le joueur, un holder au bout du spring arm, la caméra" data-alt-fr="Le système : un pivot sur le joueur, un holder au bout du spring arm, la caméra" data-alt-en="The rig: a pivot on the player, a holder at the end of the spring arm, the camera"></div>
+      <figcaption><span data-lang="fr">Trois pièces à piloter : le pivot (sur le joueur), le holder (au bout du spring arm) et la caméra.</span><span data-lang="en">Three parts to drive: the pivot (on the player), the holder (at the end of the spring arm) and the camera.</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre"><span data-lang="fr">Ce que j'ai codé</span><span data-lang="en">What I built</span></span>
+      <h2><span data-lang="fr">Un comportement par axe</span><span data-lang="en">One behaviour per axis</span></h2>
+    </div>
+    <ol class="etapes schemas">
+      <li>
+        <img src="../assets/img/rollerloop/schema-distance.webp" width="874" height="672" loading="lazy" alt="Distance de la caméra le long du spring arm" data-alt-fr="Distance de la caméra le long du spring arm" data-alt-en="Camera distance along the spring arm">
+        <div class="texte">
+          <h3><span data-lang="fr">Distance et FOV selon la vitesse</span><span data-lang="en">Distance and FOV from speed</span></h3>
+          <p data-lang="fr">Plus on va vite, plus la caméra recule et le champ de vision s'élargit : on voit plus loin et la vitesse se ressent. Des variantes prennent le relais en drift et en grind.</p>
+          <p data-lang="en">The faster you go, the further back the camera sits and the wider the field of view: you see further and feel the speed. Variants take over while drifting and grinding.</p>
+        </div>
+      </li>
+      <li>
+        <img src="../assets/img/rollerloop/schema-raycasts-pente.webp" width="709" height="536" loading="lazy" alt="Deux raycasts devant le joueur pour lire la pente" data-alt-fr="Deux raycasts devant le joueur pour lire la pente" data-alt-en="Two raycasts ahead of the player to read the slope">
+        <div class="texte">
+          <h3><span data-lang="fr">Anticiper la pente</span><span data-lang="en">Anticipating slopes</span></h3>
+          <p data-lang="fr">La première version suivait le sol sous les pieds et réagissait trop tard. Deux raycasts, plus longs avec la vitesse, lisent maintenant la route devant le joueur et distinguent un mur d'une montée.</p>
+          <p data-lang="en">The first version followed the ground underfoot and reacted too late. Two raycasts, longer at higher speed, now read the road ahead and tell a wall from a ramp.</p>
+        </div>
+      </li>
+      <li>
+        <img src="../assets/img/rollerloop/schema-chute.webp" width="840" height="632" loading="lazy" alt="La caméra pique vers le bas pendant une chute" data-alt-fr="La caméra pique vers le bas pendant une chute" data-alt-en="The camera tilts down during a drop">
+        <div class="texte">
+          <h3><span data-lang="fr">Suivre les chutes</span><span data-lang="en">Following drops</span></h3>
+          <p data-lang="fr">En l'air, l'inclinaison dépend de la vitesse de chute, pour voir où l'on va atterrir. Les transitions sol / air ont leurs propres vitesses de lissage.</p>
+          <p data-lang="en">In the air, the tilt depends on how fast you're falling, so you can see where you'll land. Ground-to-air transitions have their own smoothing speeds.</p>
+        </div>
+      </li>
+      <li>
+        <img src="../assets/img/rollerloop/schema-drift-yaw.webp" width="779" height="594" loading="lazy" alt="Décalage de la caméra pendant un drift" data-alt-fr="Décalage de la caméra pendant un drift" data-alt-en="Camera offset while drifting">
+        <div class="texte">
+          <h3><span data-lang="fr">Ouvrir les virages en drift</span><span data-lang="en">Opening up drift turns</span></h3>
+          <p data-lang="fr">En drift, la caméra pivote vers l'extérieur selon l'intensité du virage et la vitesse, puis le holder compense pour garder la sortie du virage à l'écran.</p>
+          <p data-lang="en">While drifting, the camera swings out based on turn intensity and speed, then the holder compensates to keep the corner exit on screen.</p>
+        </div>
+      </li>
+      <li>
+        <img src="../assets/img/rollerloop/schema-roll-pente.webp" width="867" height="660" loading="lazy" alt="Roulis de la caméra selon la pente" data-alt-fr="Roulis de la caméra selon la pente" data-alt-en="Camera roll based on the slope">
+        <div class="texte">
+          <h3><span data-lang="fr">L'effet drone</span><span data-lang="en">The drone feel</span></h3>
+          <p data-lang="fr">La caméra s'incline dans les virages et sur les pentes de côté, comme un drone qui suit le joueur. Un seuil évite qu'elle revienne trop lentement après un grind.</p>
+          <p data-lang="en">The camera banks into turns and side slopes, like a drone following the player. A threshold stops it from settling back too slowly after a grind.</p>
+        </div>
+      </li>
+      <li>
+        <img src="../assets/img/rollerloop/schema-offset-z.webp" width="1106" height="846" loading="lazy" alt="La caméra descend près du sol pendant un drift" data-alt-fr="La caméra descend près du sol pendant un drift" data-alt-en="The camera drops close to the ground while drifting">
+        <div class="texte">
+          <h3><span data-lang="fr">Raser le sol en drift</span><span data-lang="en">Hugging the ground in drifts</span></h3>
+          <p data-lang="fr">Pendant un drift, la caméra descend et se décale sur le côté : le sol défile plus vite à l'écran, et le joueur reste bien visible.</p>
+          <p data-lang="en">During a drift, the camera drops and slides sideways: the ground rushes past faster on screen, and the player stays clearly visible.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section blanche">
+  <div class="conteneur duo">
+    <figure>
+      <div class="media"><img src="../assets/img/rollerloop/courbe-drift.webp" width="708" height="537" loading="lazy" alt="Exemple de courbe de réglage : transition de distance selon l'intensité du drift" data-alt-fr="Exemple de courbe de réglage : transition de distance selon l'intensité du drift" data-alt-en="Example tuning curve: distance transition over drift intensity"></div>
+      <figcaption><span data-lang="fr">Une des courbes de réglage : la transition vers la distance de drift selon l'intensité du virage.</span><span data-lang="en">One of the tuning curves: the blend toward drift distance over turn intensity.</span></figcaption>
+    </figure>
+    <div class="prose">
+      <span class="surtitre"><span data-lang="fr">Pensé pour les designers</span><span data-lang="en">Built for designers</span></span>
+      <h2 style="color:var(--cacao);font-size:clamp(26px,3vw,36px)"><span data-lang="fr">Du C++, réglé sans toucher au code</span><span data-lang="en">C++, tuned without touching code</span></h2>
+      <p data-lang="fr">Toute la logique est en C++. Chaque comportement s'appuie sur des <strong>courbes</strong> (selon la vitesse, la pente, l'intensité du drift…) regroupées dans un <strong>Data Asset</strong>.</p>
+      <p data-lang="en">All the logic is in C++. Each behaviour relies on <strong>curves</strong> (over speed, slope, drift intensity…) grouped in a <strong>Data Asset</strong>.</p>
+      <p data-lang="fr">On peut ainsi créer plusieurs profils de caméra et ajuster le ressenti en direct. J'ai travaillé en binôme avec un game designer : je codais les comportements, il les réglait, et cette complémentarité nous a évité beaucoup d'allers-retours.</p>
+      <p data-lang="en">This makes it easy to create several camera profiles and tune the feel live. I worked in a pair with a game designer: I coded the behaviours, he tuned them, and that complementarity saved us a lot of back-and-forth.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre"><span data-lang="fr">Support PS5</span><span data-lang="en">PS5 support</span></span>
+      <h2><span data-lang="fr">Un moteur recompilé, puis allégé pour l'équipe</span><span data-lang="en">A rebuilt engine, then slimmed down for the team</span></h2>
+    </div>
+    <div class="duo">
+      <div class="prose">
+        <p data-lang="fr">Pour viser la PS5, j'ai recompilé <strong>Unreal Engine 5.4 depuis ses sources</strong> en y intégrant le SDK PlayStation 5. La compilation s'est bien passée ; le vrai problème est venu après.</p>
+        <p data-lang="en">To target PS5, I rebuilt <strong>Unreal Engine 5.4 from source</strong> with the PlayStation 5 SDK. The build itself went fine; the real problem came afterwards.</p>
+        <p data-lang="fr">L'éditeur obtenu pesait <strong>une centaine de Go</strong>, trop lourd pour les machines de l'équipe artistique. Nous avons repéré les fichiers de débogage (.pdb), utiles aux seuls programmeurs, et préparé une installation sur mesure qui les retire.</p>
+        <p data-lang="en">The resulting editor weighed <strong>around a hundred GB</strong>, too much for the art team's machines. We identified the debug files (.pdb), only useful to programmers, and set up a custom install without them.</p>
+      </div>
+      <div class="graphe" role="img"
+           aria-label="Taille de l'éditeur : environ 100 Go pour les programmeurs, environ 30 Go pour les artistes"
+           data-aria-fr="Taille de l'éditeur : environ 100 Go pour les programmeurs, environ 30 Go pour les artistes"
+           data-aria-en="Editor size: about 100 GB for programmers, about 30 GB for artists">
+        <span style="font-family:var(--titre);font-weight:700;font-size:18px"><span data-lang="fr">Taille de l'éditeur PS5</span><span data-lang="en">PS5 editor size</span></span>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">Installation complète</span><span data-lang="en">Full install</span><strong><span data-lang="fr">~100 Go</span><span data-lang="en">~100 GB</span></strong></div><div class="piste-barre"><div class="humain" style="width:100%"></div></div></div>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">Installation artistes</span><span data-lang="en">Artist install</span><strong><span data-lang="fr">~30 Go</span><span data-lang="en">~30 GB</span></strong></div><div class="piste-barre"><div style="width:30%"></div></div></div>
+        <p class="note" data-lang="fr">Environ 70 % d'espace en moins pour l'équipe artistique.</p>
+        <p class="note" data-lang="en">About 70% less disk space for the art team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--cacao);color:var(--creme)">
+  <div class="conteneur duo">
+    <div class="prose" style="color:#E9D9CF">
+      <span class="surtitre" style="color:var(--tournesol)"><span data-lang="fr">En jeu</span><span data-lang="en">In game</span></span>
+      <h2 style="color:var(--creme);font-size:clamp(26px,3vw,36px)"><span data-lang="fr">Du tutoriel au premier niveau</span><span data-lang="en">From tutorial to the first level</span></h2>
+      <p data-lang="fr">La transition entre le tutoriel et le premier niveau : la piste se construit devant le joueur, entre deux baleines volantes.</p>
+      <p data-lang="en">The transition from the tutorial to the first level: the track builds itself in front of the player, between two flying whales.</p>
+      <p class="liens"><a href="https://isart-digital.itch.io/rollerloop" target="_blank" rel="noopener" style="color:var(--tournesol)"><span data-lang="fr">Jouer sur itch.io ↗</span><span data-lang="en">Play on itch.io ↗</span></a> <a href="../projets/ai-drone-flight.html" style="color:var(--creme)"><span data-lang="fr">Projet suivant : AI Drone Flight →</span><span data-lang="en">Next project: AI Drone Flight →</span></a></p>
+    </div>
+    <figure>
+      <div class="media" style="border-color:var(--creme)">
+        <video src="../assets/video/rollerloop-intro.mp4" poster="../assets/img/rollerloop/poster-intro.webp" controls muted loop playsinline preload="metadata"
+               aria-label="Transition du tutoriel au premier niveau"
+               data-aria-fr="Transition du tutoriel au premier niveau"
+               data-aria-en="Transition from the tutorial to the first level"></video>
+      </div>
+    </figure>
+  </div>
+</section>
+
+</main>
+
+<footer class="pied" id="contact" style="border-top:2px solid #4E3C42">
+  <div class="conteneur" style="padding-top:48px;padding-bottom:48px">
+    <div class="pied-texte">
+      <h2 style="font-size:30px"><span data-lang="fr">Une question sur ce projet ?</span><span data-lang="en">Questions about this project?</span></h2>
+    </div>
+    <div class="actions">
+      <a class="bouton clair" href="mailto:antoine.mordant@free.fr">antoine.mordant@free.fr</a>
+      <a class="bouton contour" href="https://www.linkedin.com/in/antoine-mordant-68a5a8266/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

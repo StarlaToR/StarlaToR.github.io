@@ -46,6 +46,13 @@
     });
   });
 
+  // Respecte « réduire les animations » : pas de lecture auto des vidéos
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll("video[autoplay]").forEach(function (v) {
+      v.removeAttribute("autoplay"); v.pause(); v.setAttribute("controls", "");
+    });
+  }
+
   // Filtres de la grille de projets
   var boutons = document.querySelectorAll(".filtres button");
   boutons.forEach(function (b) {

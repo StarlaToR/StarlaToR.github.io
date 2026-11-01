@@ -254,6 +254,16 @@ p { margin: 0; }
 
 .a-completer { border: 3px dashed var(--mandarine); background: #FFF0D9; padding: 18px 22px; border-radius: 18px; }
 
+.contributions { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.contributions li { padding: 22px; border: 2px solid var(--cacao); border-radius: 18px; background: var(--blanc); box-shadow: var(--ombre-petite); display: flex; flex-direction: column; gap: 8px; }
+.contributions .num { font-family: var(--titre); font-weight: 800; color: var(--mandarine-texte); }
+.contributions h3 { font-size: 19px; }
+.contributions p { font-size: 15px; line-height: 1.5; color: var(--texte-doux); }
+.moi { align-self: flex-start; padding: 2px 10px; border-radius: 999px; background: var(--tournesol); border: 2px solid var(--cacao); font-family: var(--titre); font-weight: 700; font-size: 12px; }
+
+.etapes.schemas img { object-fit: contain; background: #FFF6EC; }
+.media video { display: block; background: var(--cacao); }
+
 @media (max-width: 640px) {
   body { font-size: 16px; }
   .section { padding: 64px 0; }

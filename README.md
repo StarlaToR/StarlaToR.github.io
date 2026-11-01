@@ -22,5 +22,6 @@ Conseil : MP4 H.264, 1280 px de large, 10 à 30 s, sans son, moins de 8 Mo.
 
 ## Reste à faire
 - [ ] Déposer `assets/docs/CV_Antoine_Mordant.pdf`
-- [ ] Vidéos : drones IA, caméra RollerLoop, réplication avant/après, showreel
+- [x] Vidéos RollerLoop (caméra, intro)
+- [ ] Vidéos : drones IA, réplication avant/après, showreel
 - [ ] Mesurer le gain de la refonte de la réplication et écrire son étude de cas

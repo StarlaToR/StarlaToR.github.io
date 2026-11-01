@@ -52,9 +52,45 @@
       <div><dt><span data-lang="fr">Contexte</span><span data-lang="en">Context</span></dt><dd><span data-lang="fr">Mémoire de fin d'études ISART, avec Undead Battery</span><span data-lang="en">ISART master's thesis, with Undead Battery</span></dd></div>
       <div><dt><span data-lang="fr">Période</span><span data-lang="en">Dates</span></dt><dd><span data-lang="fr">oct. 2025 – juin 2026</span><span data-lang="en">Oct 2025 – Jun 2026</span></dd></div>
       <div><dt><span data-lang="fr">Équipe</span><span data-lang="en">Team</span></dt><dd>Antoine Mordant, Lenny Rabinne, Matias Heno</dd></div>
+      <div><dt><span data-lang="fr">Mon rôle</span><span data-lang="en">My role</span></dt><dd><span data-lang="fr">Intégration dans TrypFPV, courses procédurales, agent avec obstacles</span><span data-lang="en">TrypFPV integration, procedural tracks, obstacle agent</span></dd></div>
       <div><dt><span data-lang="fr">Résultat</span><span data-lang="en">Outcome</span></dt><dd><span data-lang="fr">Deux agents intégrés dans un build interne de TrypFPV</span><span data-lang="en">Two agents integrated into an internal TrypFPV build</span></dd></div>
       <a class="bouton principal" href="../assets/docs/AIDroneFlight_Memoire.pdf" target="_blank" rel="noopener"><span data-lang="fr">Lire le mémoire (PDF, 30 p., en anglais)</span><span data-lang="en">Read the thesis (PDF, 30 pages)</span></a>
     </dl>
+  </div>
+</section>
+
+<section class="section peche" style="border-top:0">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre"><span data-lang="fr">Ma contribution</span><span data-lang="en">My contribution</span></span>
+      <h2><span data-lang="fr">Les fondations, puis l'agent avec obstacles</span><span data-lang="en">The foundations, then the obstacle agent</span></h2>
+    </div>
+    <ol class="contributions">
+      <li>
+        <span class="num">01</span>
+        <h3><span data-lang="fr">Le premier socle</span><span data-lang="en">The first foundation</span></h3>
+        <p data-lang="fr">J'ai monté le projet Unreal de départ avec Learning Agents, sur lequel l'équipe a démarré. J'y ai codé un drone simplifié qui reprend les commandes de TrypFPV.</p>
+        <p data-lang="en">I set up the starting Unreal project with Learning Agents, which the team built on. In it, I wrote a simplified drone using TrypFPV's controls.</p>
+      </li>
+      <li>
+        <span class="num">02</span>
+        <h3><span data-lang="fr">La passerelle vers TrypFPV</span><span data-lang="en">The bridge into TrypFPV</span></h3>
+        <p data-lang="fr">J'ai installé Learning Agents dans le projet UE5 de TrypFPV et créé le plugin qui a transporté notre travail entre les deux projets pendant tout le mémoire.</p>
+        <p data-lang="en">I installed Learning Agents in TrypFPV's UE5 project and created the plugin that carried our work between the two projects throughout the thesis.</p>
+      </li>
+      <li>
+        <span class="num">03</span>
+        <h3><span data-lang="fr">Les courses procédurales</span><span data-lang="en">Procedural tracks</span></h3>
+        <p data-lang="fr">Une spline aléatoire, des portes de formes variées (carrées, triangulaires, rondes…) sur ses points, et des obstacles entre eux en option. Avec des classes enfants des drones pour ne pas perturber le projet du studio.</p>
+        <p data-lang="en">A random spline, gates of various shapes (square, triangular, round…) on its points, and optional obstacles in between. Built on child classes of the drones so the studio's project stayed untouched.</p>
+      </li>
+      <li>
+        <span class="num">04</span>
+        <h3><span data-lang="fr">L'agent qui évite les obstacles</span><span data-lang="en">The obstacle-avoiding agent</span></h3>
+        <p data-lang="fr">J'ai entraîné le réseau qui pilote en tenant compte des obstacles et des collisions : celui de la piste avancée, qui termine 79 % de ses courses.</p>
+        <p data-lang="en">I trained the network that flies around obstacles and handles collisions: the advanced-track agent, which completes 79% of its races.</p>
+      </li>
+    </ol>
   </div>
 </section>
 
@@ -117,6 +153,7 @@
       <li>
         <img src="../assets/img/drone/etape1-voiture.webp" width="1400" height="817" loading="lazy" alt="Voitures entraînées à suivre une spline" data-alt-fr="Voitures entraînées à suivre une spline" data-alt-en="Cars trained to follow a spline">
         <div class="texte">
+          <span class="moi"><span data-lang="fr">Mon travail</span><span data-lang="en">My work</span></span>
           <h3><span data-lang="fr">Prise en main en 2D</span><span data-lang="en">Getting started in 2D</span></h3>
           <p data-lang="fr">Une voiture apprend à suivre une spline, pour maîtriser Learning Agents : observations, actions, sauvegarde et reprise d'entraînement.</p>
           <p data-lang="en">A car learns to follow a spline, to get to grips with Learning Agents: observations, actions, saving and resuming training.</p>
@@ -125,6 +162,7 @@
       <li>
         <img src="../assets/img/drone/axes.webp" width="1124" height="888" loading="lazy" alt="Les trois axes de rotation d'un drone" data-alt-fr="Les trois axes de rotation d'un drone" data-alt-en="A drone's three rotation axes">
         <div class="texte">
+          <span class="moi"><span data-lang="fr">Mon travail</span><span data-lang="en">My work</span></span>
           <h3><span data-lang="fr">Un drone simplifié en 3D</span><span data-lang="en">A simplified 3D drone</span></h3>
           <p data-lang="fr">Une seule force verticale au lieu de quatre hélices, mais les vraies commandes FPV, pour que l'apprentissage reste transférable.</p>
           <p data-lang="en">A single vertical force instead of four propellers, but real FPV controls, so the learning stays transferable.</p>
@@ -149,6 +187,7 @@
       <li>
         <div class="sans-image"><span data-lang="fr">Plugin UE5 branché sur TrypFPV</span><span data-lang="en">UE5 plugin plugged into TrypFPV</span></div>
         <div class="texte">
+          <span class="moi"><span data-lang="fr">Mon travail</span><span data-lang="en">My work</span></span>
           <h3><span data-lang="fr">Passage à la vraie physique</span><span data-lang="en">Switching to real physics</span></h3>
           <p data-lang="fr">Tout le système d'entraînement est emballé dans un plugin Unreal, intégré à TrypFPV sans toucher à son architecture.</p>
           <p data-lang="en">The whole training system is packaged as an Unreal plugin, integrated into TrypFPV without touching its architecture.</p>
@@ -157,6 +196,7 @@
       <li>
         <img src="../assets/img/drone/piste-obstacles.webp" width="1400" height="735" loading="lazy" alt="Piste complète avec obstacles" data-alt-fr="Piste complète avec obstacles" data-alt-en="Full track with obstacles">
         <div class="texte">
+          <span class="moi"><span data-lang="fr">Mon travail</span><span data-lang="en">My work</span></span>
           <h3><span data-lang="fr">Des courses complètes, puis des obstacles</span><span data-lang="en">Full races, then obstacles</span></h3>
           <p data-lang="fr">Une suite de portes générée à chaque épisode, puis des obstacles le long du parcours : le scénario le plus proche d'une vraie course.</p>
           <p data-lang="en">A new sequence of gates every episode, then obstacles along the way: the closest scenario to a real race.</p>
