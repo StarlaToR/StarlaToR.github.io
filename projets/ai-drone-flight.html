@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="fr" data-titre-fr="AI Drone Flight · Antoine Mordant" data-titre-en="AI Drone Flight · Antoine Mordant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Drone Flight · Antoine Mordant</title>
+<meta name="description" content="Étude de cas : des pilotes de drones FPV entraînés par apprentissage par renforcement (PPO, Learning Agents) dans le simulateur TrypFPV sous Unreal Engine 5.">
+<meta property="og:title" content="AI Drone Flight · Antoine Mordant">
+<meta property="og:image" content="https://starlator.github.io/assets/img/drone/piste.webp">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="entete">
+  <div class="conteneur">
+    <a class="logo" href="../index.html">Antoine<span>.</span>M</a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="../index.html#projets"><span data-lang="fr">← Tous les projets</span><span data-lang="en">← All projects</span></a>
+      <div class="langues" role="group" aria-label="Langue / Language">
+        <button type="button" data-choix="fr" aria-pressed="true">FR</button>
+        <button type="button" data-choix="en" aria-pressed="false">EN</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="projet-tete">
+  <div class="conteneur">
+    <ul class="tags"><li>Unreal Engine 5.7</li><li>Learning Agents</li><li>PPO</li><li>C++ · Blueprints</li><li>TensorBoard</li></ul>
+    <h1>AI Drone Flight</h1>
+    <p class="chapo" data-lang="fr">Apprendre à une IA à piloter un drone FPV de course avec la vraie physique de TrypFPV, sur des pistes qu'elle n'a jamais vues.</p>
+    <p class="chapo" data-lang="en">Teaching an AI to fly an FPV racing drone with TrypFPV's real physics, on tracks it has never seen.</p>
+  </div>
+</section>
+
+<section class="projet-intro">
+  <div class="conteneur">
+    <figure class="media" style="margin:0">
+      <!-- Vidéo à ajouter : <video src="../assets/video/drones-ia.mp4" poster="../assets/img/drone/piste.webp" controls muted playsinline preload="none"></video> -->
+      <img src="../assets/img/drone/piste.webp" width="1400" height="839"
+           alt="Piste générée : des portes le long d'une spline, sans sol"
+           data-alt-fr="Piste générée : des portes le long d'une spline, sans sol"
+           data-alt-en="Generated track: gates along a spline, with no ground">
+    </figure>
+    <dl class="fiche">
+      <div><dt><span data-lang="fr">Contexte</span><span data-lang="en">Context</span></dt><dd><span data-lang="fr">Mémoire de fin d'études ISART, avec Undead Battery</span><span data-lang="en">ISART master's thesis, with Undead Battery</span></dd></div>
+      <div><dt><span data-lang="fr">Période</span><span data-lang="en">Dates</span></dt><dd><span data-lang="fr">oct. 2025 – juin 2026</span><span data-lang="en">Oct 2025 – Jun 2026</span></dd></div>
+      <div><dt><span data-lang="fr">Équipe</span><span data-lang="en">Team</span></dt><dd>Antoine Mordant, Lenny Rabinne, Matias Heno</dd></div>
+      <div><dt><span data-lang="fr">Résultat</span><span data-lang="en">Outcome</span></dt><dd><span data-lang="fr">Deux agents intégrés dans un build interne de TrypFPV</span><span data-lang="en">Two agents integrated into an internal TrypFPV build</span></dd></div>
+      <a class="bouton principal" href="../assets/docs/AIDroneFlight_Memoire.pdf" target="_blank" rel="noopener"><span data-lang="fr">Lire le mémoire (PDF, 30 p., en anglais)</span><span data-lang="en">Read the thesis (PDF, 30 pages)</span></a>
+    </dl>
+  </div>
+</section>
+
+<section class="section blanche">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre"><span data-lang="fr">Le défi</span><span data-lang="en">The challenge</span></span>
+      <h2><span data-lang="fr">Des adversaires IA qui volent comme de vrais pilotes</span><span data-lang="en">AI opponents that fly like real pilots</span></h2>
+    </div>
+    <div class="prose">
+      <p data-lang="fr">Undead Battery voulait savoir si une IA pouvait piloter dans TrypFPV, un simulateur réputé pour sa physique de vol réaliste. Un drone FPV, c'est quatre commandes en continu (gaz, roulis, tangage, lacet), une grande vitesse et aucune aide au pilotage.</p>
+      <p data-lang="en">Undead Battery wanted to know whether an AI could fly in TrypFPV, a simulator known for its realistic flight physics. An FPV drone means four continuous inputs (throttle, roll, pitch, yaw), high speed and no flight assistance.</p>
+      <p data-lang="fr">Des chercheurs ont déjà battu des champions humains avec une IA (Kaufmann et al., <em>Nature</em>, 2023), mais <strong>sur une seule piste apprise par cœur</strong>. Notre objectif : une IA qui <strong>généralise</strong> à des pistes inconnues, avec obstacles, sans simplifier la physique.</p>
+      <p data-lang="en">Researchers have already beaten human champions with AI (Kaufmann et al., <em>Nature</em>, 2023), but <strong>on a single, memorised track</strong>. Our goal: an AI that <strong>generalises</strong> to unknown tracks with obstacles, without simplifying the physics.</p>
+    </div>
+
+    <div class="boucle">
+      <div class="boucle-etape">
+        <h3><span data-lang="fr">CE QUE L'IA PERÇOIT</span><span data-lang="en">WHAT THE AI SENSES</span></h3>
+        <ul>
+          <li data-lang="fr">Porte actuelle et suivante : distance, direction, orientation</li>
+          <li data-lang="en">Current and next gate: distance, direction, orientation</li>
+          <li data-lang="fr">Vitesse du drone et gyroscope</li>
+          <li data-lang="en">Drone velocity and gyroscope</li>
+          <li data-lang="fr">13 rayons : 5 directions et deux cônes de 6 rayons, inclinés à 45°</li>
+          <li data-lang="en">13 raycasts: 5 directions and two cones of 6 rays, tilted 45°</li>
+        </ul>
+      </div>
+      <div class="boucle-etape accent">
+        <h3><span data-lang="fr">CE QU'ELLE DÉCIDE</span><span data-lang="en">WHAT IT DECIDES</span></h3>
+        <ul>
+          <li data-lang="fr">Un réseau entraîné avec PPO via le plugin Learning Agents</li>
+          <li data-lang="en">A network trained with PPO through the Learning Agents plugin</li>
+          <li data-lang="fr">Toutes les quelques millisecondes : gaz, roulis, tangage, lacet</li>
+          <li data-lang="en">Every few milliseconds: throttle, roll, pitch, yaw</li>
+        </ul>
+      </div>
+      <div class="boucle-etape">
+        <h3><span data-lang="fr">CE QUI LA GUIDE</span><span data-lang="en">WHAT GUIDES IT</span></h3>
+        <ul>
+          <li><span class="plus">+</span> <span data-lang="fr">voler vers la porte, d'autant plus vite</span><span data-lang="en">flying toward the gate, more so when fast</span></li>
+          <li><span class="plus">+1</span> <span data-lang="fr">porte franchie, bonus si rapide</span><span data-lang="en">gate passed, bonus if quick</span></li>
+          <li><span class="plus">+2</span> <span data-lang="fr">course terminée, bonus si rapide</span><span data-lang="en">race finished, bonus if quick</span></li>
+          <li><span class="moins"><span data-lang="fr">−0,1</span><span data-lang="en">−0.1</span></span> <span data-lang="fr">chaque collision</span><span data-lang="en">each collision</span></li>
+          <li><span class="moins">−5</span> <span data-lang="fr">trop loin de la piste</span><span data-lang="en">too far from the track</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="liens" style="margin-top:18px"><a href="../assets/img/drone/schema-ia.webp" target="_blank" rel="noopener"><span data-lang="fr">Voir le schéma complet observations → actions → récompenses</span><span data-lang="en">See the full observations → actions → rewards diagram</span></a></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre"><span data-lang="fr">La démarche</span><span data-lang="en">The approach</span></span>
+      <h2><span data-lang="fr">Du plus simple au plus réaliste, en six étapes</span><span data-lang="en">From simple to realistic, in six steps</span></h2>
+    </div>
+    <ol class="etapes">
+      <li>
+        <img src="../assets/img/drone/etape1-voiture.webp" width="1400" height="817" loading="lazy" alt="Voitures entraînées à suivre une spline" data-alt-fr="Voitures entraînées à suivre une spline" data-alt-en="Cars trained to follow a spline">
+        <div class="texte">
+          <h3><span data-lang="fr">Prise en main en 2D</span><span data-lang="en">Getting started in 2D</span></h3>
+          <p data-lang="fr">Une voiture apprend à suivre une spline, pour maîtriser Learning Agents : observations, actions, sauvegarde et reprise d'entraînement.</p>
+          <p data-lang="en">A car learns to follow a spline, to get to grips with Learning Agents: observations, actions, saving and resuming training.</p>
+        </div>
+      </li>
+      <li>
+        <img src="../assets/img/drone/axes.webp" width="1124" height="888" loading="lazy" alt="Les trois axes de rotation d'un drone" data-alt-fr="Les trois axes de rotation d'un drone" data-alt-en="A drone's three rotation axes">
+        <div class="texte">
+          <h3><span data-lang="fr">Un drone simplifié en 3D</span><span data-lang="en">A simplified 3D drone</span></h3>
+          <p data-lang="fr">Une seule force verticale au lieu de quatre hélices, mais les vraies commandes FPV, pour que l'apprentissage reste transférable.</p>
+          <p data-lang="en">A single vertical force instead of four propellers, but real FPV controls, so the learning stays transferable.</p>
+        </div>
+      </li>
+      <li>
+        <img src="../assets/img/drone/etape3-cible.webp" width="1028" height="834" loading="lazy" alt="Une vingtaine de drones visent chacun leur cible" data-alt-fr="Une vingtaine de drones visent chacun leur cible" data-alt-en="About twenty drones each chasing their own target">
+        <div class="texte">
+          <h3><span data-lang="fr">Atteindre une cible au hasard</span><span data-lang="en">Reaching a random target</span></h3>
+          <p data-lang="fr">Plus de chemin tracé : le drone doit trouver sa trajectoire seul. Une vingtaine d'agents s'entraînent en parallèle.</p>
+          <p data-lang="en">No more predefined path: the drone must find its own way. About twenty agents train in parallel.</p>
+        </div>
+      </li>
+      <li>
+        <img src="../assets/img/drone/etape4-portes.webp" width="1400" height="1134" loading="lazy" alt="Drones traversant des portes placées au hasard" data-alt-fr="Drones traversant des portes placées au hasard" data-alt-en="Drones flying through randomly placed gates">
+        <div class="texte">
+          <h3><span data-lang="fr">Passer des portes</span><span data-lang="en">Flying through gates</span></h3>
+          <p data-lang="fr">La porte devient à la fois cible et obstacle. Nous avons cherché le bon nombre de rayons : assez pour voir, pas trop pour apprendre vite.</p>
+          <p data-lang="en">The gate becomes both a target and an obstacle. We tuned the number of raycasts: enough to see, few enough to learn fast.</p>
+        </div>
+      </li>
+      <li>
+        <div class="sans-image"><span data-lang="fr">Plugin UE5 branché sur TrypFPV</span><span data-lang="en">UE5 plugin plugged into TrypFPV</span></div>
+        <div class="texte">
+          <h3><span data-lang="fr">Passage à la vraie physique</span><span data-lang="en">Switching to real physics</span></h3>
+          <p data-lang="fr">Tout le système d'entraînement est emballé dans un plugin Unreal, intégré à TrypFPV sans toucher à son architecture.</p>
+          <p data-lang="en">The whole training system is packaged as an Unreal plugin, integrated into TrypFPV without touching its architecture.</p>
+        </div>
+      </li>
+      <li>
+        <img src="../assets/img/drone/piste-obstacles.webp" width="1400" height="735" loading="lazy" alt="Piste complète avec obstacles" data-alt-fr="Piste complète avec obstacles" data-alt-en="Full track with obstacles">
+        <div class="texte">
+          <h3><span data-lang="fr">Des courses complètes, puis des obstacles</span><span data-lang="en">Full races, then obstacles</span></h3>
+          <p data-lang="fr">Une suite de portes générée à chaque épisode, puis des obstacles le long du parcours : le scénario le plus proche d'une vraie course.</p>
+          <p data-lang="en">A new sequence of gates every episode, then obstacles along the way: the closest scenario to a real race.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section blanche">
+  <div class="conteneur duo">
+    <div class="prose">
+      <span class="surtitre"><span data-lang="fr">Le déclic</span><span data-lang="en">The breakthrough</span></span>
+      <h2 style="color:var(--cacao);font-size:clamp(26px,3vw,36px)"><span data-lang="fr">Quand l'IA apprend enfin à tourner</span><span data-lang="en">When the AI finally learns to turn</span></h2>
+      <p data-lang="fr">Sur la piste complète, l'agent plafonne vite : il fonce vers la première porte puis n'arrive pas à se réorienter vers la suivante. Une deuxième session d'entraînement ne change presque rien.</p>
+      <p data-lang="en">On the full track, the agent quickly plateaus: it rushes the first gate, then can't turn toward the next one. A second training session barely changes anything.</p>
+      <p data-lang="fr">À la <strong>troisième session</strong>, il trouve une stratégie pour pivoter vers la porte suivante et finit des courses entières. Une quatrième session sert de réglage fin.</p>
+      <p data-lang="en">In the <strong>third session</strong>, it finds a way to pivot toward the next gate and completes whole races. A fourth session is used for fine-tuning.</p>
+    </div>
+    <figure>
+      <div class="media"><img src="../assets/img/drone/courbes-entrainement.webp" width="1400" height="1151" loading="lazy" alt="Courbes TensorBoard sur quatre sessions d'entraînement" data-alt-fr="Courbes TensorBoard sur quatre sessions d'entraînement" data-alt-en="TensorBoard curves across four training sessions"></div>
+      <figcaption><span data-lang="fr">Courbes TensorBoard des sessions 1 à 4 : le saut a lieu à la session 3.</span><span data-lang="en">TensorBoard curves for sessions 1 to 4: the jump happens in session 3.</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre"><span data-lang="fr">Résultats</span><span data-lang="en">Results</span></span>
+      <h2><span data-lang="fr">200 essais par agent, face à un champion</span><span data-lang="en">200 runs per agent, against a champion</span></h2>
+    </div>
+    <div class="graphes">
+      <figure class="graphe" role="img"
+              aria-label="Courses terminées : IA piste simple 89 %, IA piste avec obstacles 79 %, pilote champion piste avec obstacles 98 %"
+              data-aria-fr="Courses terminées : IA piste simple 89 %, IA piste avec obstacles 79 %, pilote champion piste avec obstacles 98 %"
+              data-aria-en="Races completed: AI simple track 89%, AI obstacle track 79%, champion pilot obstacle track 98%">
+        <figcaption><span data-lang="fr">Courses terminées</span><span data-lang="en">Races completed</span></figcaption>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">IA, piste simple</span><span data-lang="en">AI, simple track</span><strong>89 %</strong></div><div class="piste-barre"><div style="width:89%"></div></div></div>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">IA, piste avec obstacles</span><span data-lang="en">AI, obstacle track</span><strong>79 %</strong></div><div class="piste-barre"><div style="width:79%"></div></div></div>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">Pilote champion, avec obstacles</span><span data-lang="en">Champion pilot, obstacles</span><strong>98 %</strong></div><div class="piste-barre"><div class="humain" style="width:98%"></div></div></div>
+      </figure>
+      <figure class="graphe" role="img"
+              aria-label="Temps moyen : IA piste simple 36,8 s, IA piste avec obstacles 97,5 s, pilote champion 25,5 s"
+              data-aria-fr="Temps moyen : IA piste simple 36,8 s, IA piste avec obstacles 97,5 s, pilote champion 25,5 s"
+              data-aria-en="Average time: AI simple track 36.8 s, AI obstacle track 97.5 s, champion pilot 25.5 s">
+        <figcaption><span data-lang="fr">Temps moyen par course</span><span data-lang="en">Average time per race</span></figcaption>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">IA, piste simple</span><span data-lang="en">AI, simple track</span><strong><span data-lang="fr">36,8 s</span><span data-lang="en">36.8 s</span></strong></div><div class="piste-barre"><div style="width:38%"></div></div></div>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">IA, piste avec obstacles</span><span data-lang="en">AI, obstacle track</span><strong><span data-lang="fr">97,5 s</span><span data-lang="en">97.5 s</span></strong></div><div class="piste-barre"><div style="width:100%"></div></div></div>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">Pilote champion, avec obstacles</span><span data-lang="en">Champion pilot, obstacles</span><strong><span data-lang="fr">25,5 s</span><span data-lang="en">25.5 s</span></strong></div><div class="piste-barre"><div class="humain" style="width:26%"></div></div></div>
+        <p class="note" data-lang="fr">Sur piste simple, l'IA fait 30,0 s au mieux. Avec obstacles, elle subit 430 collisions en moyenne : c'est ce qui la ralentit.</p>
+        <p class="note" data-lang="en">On the simple track, the AI's best run is 30.0 s. With obstacles, it averages 430 collisions, which is what slows it down.</p>
+      </figure>
+    </div>
+    <div class="encart">
+      <strong><span data-lang="fr">Ce que ça montre</span><span data-lang="en">What it shows</span></strong>
+      <span data-lang="fr">En vol dégagé, l'IA pilote de façon fiable et rapide. Avec beaucoup d'obstacles, elle manque encore de réactivité : ses meilleurs essais sont excellents, mais ils tiennent encore de la chance.</span>
+      <span data-lang="en">In open flight, the AI flies reliably and fast. With many obstacles, it still lacks reactivity: its best runs are excellent, but they still come down to luck.</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--cacao);color:var(--creme)">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre" style="color:var(--tournesol)"><span data-lang="fr">Limites et suite</span><span data-lang="en">Limits and next steps</span></span>
+      <h2><span data-lang="fr">Ce que je changerais</span><span data-lang="en">What I would change</span></h2>
+    </div>
+    <div class="colonnes">
+      <div class="bloc-sombre">
+        <span class="num">01</span>
+        <h3><span data-lang="fr">Percevoir plus vite</span><span data-lang="en">Faster perception</span></h3>
+        <p data-lang="fr">Les rayons sont répartis sur trois frames pour économiser du calcul. À pleine vitesse, ce retard suffit à provoquer des collisions. Piste : un cône plus dense, ou apprendre directement depuis l'image de la caméra FPV.</p>
+        <p data-lang="en">Raycasts are spread over three frames to save CPU time. At full speed, that delay is enough to cause crashes. Next: a denser cone, or learning straight from the FPV camera feed.</p>
+      </div>
+      <div class="bloc-sombre">
+        <span class="num">02</span>
+        <h3><span data-lang="fr">Une récompense plus stable</span><span data-lang="en">A steadier reward</span></h3>
+        <p data-lang="fr">Pistes et obstacles aléatoires rendent le signal très bruité. Piste : pénaliser l'approche d'un obstacle avant le choc, pas seulement le choc.</p>
+        <p data-lang="en">Random tracks and obstacles make the signal very noisy. Next: penalise getting close to an obstacle before the crash, not only the crash itself.</p>
+      </div>
+      <div class="bloc-sombre">
+        <span class="num">03</span>
+        <h3><span data-lang="fr">Donner une mémoire</span><span data-lang="en">Add memory</span></h3>
+        <p data-lang="fr">Un réseau récurrent (LSTM) garderait en tête la trajectoire récente, utile pour anticiper les virages serrés et les obstacles cachés.</p>
+        <p data-lang="en">A recurrent network (LSTM) would remember the recent trajectory, which helps anticipate sharp turns and hidden obstacles.</p>
+      </div>
+    </div>
+    <p class="liens" style="margin-top:36px"><a href="../index.html#projets" style="color:var(--tournesol)"><span data-lang="fr">← Retour aux projets</span><span data-lang="en">← Back to projects</span></a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="pied" id="contact" style="border-top:2px solid #4E3C42">
+  <div class="conteneur" style="padding-top:48px;padding-bottom:48px">
+    <div class="pied-texte">
+      <h2 style="font-size:30px"><span data-lang="fr">Une question sur ce projet ?</span><span data-lang="en">Questions about this project?</span></h2>
+    </div>
+    <div class="actions">
+      <a class="bouton clair" href="mailto:antoine.mordant@free.fr">antoine.mordant@free.fr</a>
+      <a class="bouton contour" href="https://www.linkedin.com/in/antoine-mordant-68a5a8266/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
