@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="fr" data-titre-fr="TrypFPV : réplication des drones · Antoine Mordant" data-titre-en="TrypFPV: drone replication · Antoine Mordant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TrypFPV : réplication des drones · Antoine Mordant</title>
+<meta name="description" content="Étude de cas : refonte de la réplication réseau des drones de TrypFPV (Unreal Engine 5, C++). Flux client vers hôte réduit de 70 %, une seule physique par machine au lieu de huit.">
+<meta property="og:title" content="TrypFPV : refonte de la réplication des drones · Antoine Mordant">
+<meta property="og:image" content="https://starlator.github.io/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://starlator.github.io/projets/trypfpv-replication.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="entete">
+  <div class="conteneur">
+    <a class="logo" href="../index.html">Antoine<span>.</span>M</a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="../index.html#projets"><span data-lang="fr">← Tous les projets</span><span data-lang="en">← All projects</span></a>
+      <div class="langues" role="group" aria-label="Langue / Language">
+        <button type="button" data-choix="fr" aria-pressed="true">FR</button>
+        <button type="button" data-choix="en" aria-pressed="false">EN</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section class="projet-tete">
+  <div class="conteneur">
+    <ul class="tags"><li>Unreal Engine 5</li><li>C++</li><li><span data-lang="fr">Réplication réseau</span><span data-lang="en">Network replication</span></li><li>NetSerialize</li><li>stat net</li></ul>
+    <h1><span data-lang="fr">TrypFPV : refonte de la réplication des drones</span><span data-lang="en">TrypFPV: reworking drone replication</span></h1>
+    <p class="chapo" data-lang="fr">Chaque drone n'est plus simulé que par son pilote. Les autres machines reçoivent un état compact et l'interpolent.</p>
+    <p class="chapo" data-lang="en">Each drone is now simulated only by its pilot. Other machines receive a compact state and interpolate it.</p>
+  </div>
+</section>
+
+<section class="projet-intro">
+  <div class="conteneur">
+    <div class="schema-replication grand" role="img"
+         aria-label="Avant : chaque machine simule tous les drones. Après : chaque machine simule son drone et reçoit l'état des autres."
+         data-aria-fr="Avant : chaque machine simule tous les drones. Après : chaque machine simule son drone et reçoit l'état des autres."
+         data-aria-en="Before: every machine simulates every drone. After: each machine simulates its own drone and receives the others' state.">
+      <div class="schema-carte">
+        <h4><span data-lang="fr">AVANT</span><span data-lang="en">BEFORE</span></h4>
+        <div class="machines">
+          <div class="machine"><div class="drones"><i class="drone-pt"></i><i class="drone-pt"></i><i class="drone-pt"></i></div><span data-lang="fr">Hôte</span><span data-lang="en">Host</span></div>
+          <div class="machine"><div class="drones"><i class="drone-pt"></i><i class="drone-pt"></i><i class="drone-pt"></i></div>Client A</div>
+          <div class="machine"><div class="drones"><i class="drone-pt"></i><i class="drone-pt"></i><i class="drone-pt"></i></div>Client B</div>
+        </div>
+        <p data-lang="fr">Toutes les machines calculent la physique de tous les drones.</p>
+        <p data-lang="en">Every machine runs the physics of every drone.</p>
+      </div>
+      <div class="schema-carte">
+        <h4><span data-lang="fr">APRÈS</span><span data-lang="en">AFTER</span></h4>
+        <div class="machines">
+          <div class="machine"><div class="drones"><i class="drone-pt"></i><i class="drone-pt fantome"></i><i class="drone-pt fantome"></i></div><span data-lang="fr">Hôte</span><span data-lang="en">Host</span></div>
+          <div class="machine"><div class="drones"><i class="drone-pt fantome"></i><i class="drone-pt"></i><i class="drone-pt fantome"></i></div>Client A</div>
+          <div class="machine"><div class="drones"><i class="drone-pt fantome"></i><i class="drone-pt fantome"></i><i class="drone-pt"></i></div>Client B</div>
+        </div>
+        <p data-lang="fr">Chacun simule son drone et ne reçoit que l'état des autres.</p>
+        <p data-lang="en">Each simulates its own drone and only receives the others' state.</p>
+      </div>
+    </div>
+    <dl class="fiche">
+      <div><dt><span data-lang="fr">Contexte</span><span data-lang="en">Context</span></dt><dd><span data-lang="fr">CDD chez Undead Battery, automne 2026</span><span data-lang="en">Fixed-term contract at Undead Battery, autumn 2026</span></dd></div>
+      <div><dt><span data-lang="fr">Jeu</span><span data-lang="en">Game</span></dt><dd><span data-lang="fr">TrypFPV, simulateur de drone FPV sur Steam</span><span data-lang="en">TrypFPV, an FPV drone simulator on Steam</span></dd></div>
+      <div><dt><span data-lang="fr">Mon rôle</span><span data-lang="en">My role</span></dt><dd><span data-lang="fr">Conception, implémentation et mesure de la refonte</span><span data-lang="en">Design, implementation and measurement of the rework</span></dd></div>
+      <div><dt><span data-lang="fr">Mesures</span><span data-lang="en">Measured with</span></dt><dd>stat net, PIE</dd></div>
+      <a class="bouton" href="https://store.steampowered.com/app/1881200/" target="_blank" rel="noopener"><span data-lang="fr">TrypFPV sur Steam ↗</span><span data-lang="en">TrypFPV on Steam ↗</span></a>
+    </dl>
+  </div>
+</section>
+
+<section class="chiffres" aria-label="Chiffres clés">
+  <div class="conteneur">
+    <div class="chiffre"><strong>−70 %</strong><span data-lang="fr">de flux du client vers l'hôte (mesuré)</span><span data-lang="en">client-to-host traffic (measured)</span></div>
+    <div class="chiffre"><strong>−74 %</strong><span data-lang="fr">d'envoi de l'hôte à 8 joueurs (estimé)</span><span data-lang="en">host upload with 8 players (estimated)</span></div>
+    <div class="chiffre"><strong><span data-lang="fr">1 au lieu de 8</span><span data-lang="en">1 instead of 8</span></strong><span data-lang="fr">physiques de drone par machine à 8 joueurs</span><span data-lang="en">drone physics simulations per machine at 8 players</span></div>
+    <div class="chiffre"><strong><span data-lang="fr">~42 octets</span><span data-lang="en">~42 bytes</span></strong><span data-lang="fr">pour tout l'état d'un drone, à 30 Hz</span><span data-lang="en">for a drone's whole state, at 30 Hz</span></div>
+  </div>
+</section>
+
+<section class="section blanche" style="border-top:0">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre"><span data-lang="fr">Le problème</span><span data-lang="en">The problem</span></span>
+      <h2><span data-lang="fr">Huit physiques à 500 Hz sur chaque machine</span><span data-lang="en">Eight physics simulations at 500 Hz on every machine</span></h2>
+    </div>
+    <div class="prose" style="margin-bottom:32px">
+      <p data-lang="fr">Dans TrypFPV, la physique et le contrôleur de vol d'un drone tournent à 500 Hz. Avant la refonte, l'hôte resimulait le drone de chaque client à partir de ses manches, et chaque client resimulait aussi les drones des autres. Le pilote envoyait son état et 4 RPC d'axes <strong>à chaque frame</strong> : son débit montait avec ses FPS.</p>
+      <p data-lang="en">In TrypFPV, a drone's physics and flight controller run at 500 Hz. Before the rework, the host re-simulated each client's drone from its stick inputs, and every client also re-simulated the others' drones. The pilot sent its state plus 4 axis RPCs <strong>every frame</strong>: its bandwidth grew with its frame rate.</p>
+    </div>
+    <div class="flux">
+      <div class="flux-ligne">
+        <span class="flux-titre"><span data-lang="fr">Avant</span><span data-lang="en">Before</span></span>
+        <div class="flux-boite"><strong><span data-lang="fr">Client pilote</span><span data-lang="en">Pilot client</span></strong><span data-lang="fr">Physique et FC à 500 Hz. Débit lié aux FPS.</span><span data-lang="en">Physics and FC at 500 Hz. Bandwidth tied to FPS.</span></div>
+        <div class="flux-fleche"><span data-lang="fr">chaque frame : état + 4 RPC</span><span data-lang="en">every frame: state + 4 RPCs</span></div>
+        <div class="flux-boite"><strong><span data-lang="fr">Hôte</span><span data-lang="en">Host</span></strong><span data-lang="fr">Resimule le drone à partir des manches.</span><span data-lang="en">Re-simulates the drone from stick inputs.</span></div>
+        <div class="flux-fleche"><span data-lang="fr">à chaque changement</span><span data-lang="en">on every change</span></div>
+        <div class="flux-boite"><strong><span data-lang="fr">Autre client</span><span data-lang="en">Other client</span></strong><span data-lang="fr">Simule aussi le drone, recale la pose à la réception.</span><span data-lang="en">Also simulates the drone, snaps the pose on receipt.</span></div>
+      </div>
+      <div class="flux-ligne apres">
+        <span class="flux-titre"><span data-lang="fr">Après</span><span data-lang="en">After</span></span>
+        <div class="flux-boite accent"><strong><span data-lang="fr">Client pilote</span><span data-lang="en">Pilot client</span></strong><span data-lang="fr">Seul à simuler son drone. Débit fixe.</span><span data-lang="en">The only one simulating its drone. Fixed bandwidth.</span></div>
+        <div class="flux-fleche"><span data-lang="fr">30 Hz, non fiable, ~42 octets</span><span data-lang="en">30 Hz, unreliable, ~42 bytes</span></div>
+        <div class="flux-boite"><strong><span data-lang="fr">Hôte</span><span data-lang="en">Host</span></strong><span data-lang="fr">Copie kinématique, relaie l'état reçu.</span><span data-lang="en">Kinematic copy, relays the received state.</span></div>
+        <div class="flux-fleche"><span data-lang="fr">30 Hz</span><span data-lang="en">30 Hz</span></div>
+        <div class="flux-boite"><strong><span data-lang="fr">Autre client</span><span data-lang="en">Other client</span></strong><span data-lang="fr">Copie kinématique, interpolation horodatée, retard fixe de 100 ms.</span><span data-lang="en">Kinematic copy, timestamped interpolation, fixed 100 ms delay.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre"><span data-lang="fr">Ce que j'ai construit</span><span data-lang="en">What I built</span></span>
+      <h2><span data-lang="fr">Un état compact, des copies fluides</span><span data-lang="en">A compact state, smooth copies</span></h2>
+    </div>
+    <div class="contributions-grille">
+      <div class="contribution">
+        <span class="num">01</span>
+        <h3><span data-lang="fr">Un seul état, sérialisé à la main</span><span data-lang="en">One hand-serialised state</span></h3>
+        <p data-lang="fr">Tout l'état du drone tient dans une structure envoyée à 30 Hz, avec sa propre sérialisation. Elle remplace l'état de corps rigide envoyé à chaque frame et les 4 RPC d'axes.</p>
+        <p data-lang="en">The drone's whole state fits in one struct sent at 30 Hz, with its own serialisation. It replaces the rigid-body state sent every frame and the 4 axis RPCs.</p>
+      </div>
+      <div class="contribution">
+        <span class="num">02</span>
+        <h3><span data-lang="fr">Chaque bit compte</span><span data-lang="en">Every bit counts</span></h3>
+        <p data-lang="fr">Rotation en « smallest-three » sur 47 bits au lieu de 24 octets, manches sur 8 bits, vitesse angulaire retirée et recalculée par la copie, et 1 seul bit pour les données qui n'ont pas changé.</p>
+        <p data-lang="en">Rotation as "smallest-three" in 47 bits instead of 24 bytes, sticks on 8 bits, angular velocity dropped and rebuilt by the copy, and a single bit for any data that hasn't changed.</p>
+      </div>
+      <div class="contribution">
+        <span class="num">03</span>
+        <h3><span data-lang="fr">Des copies kinématiques fluides</span><span data-lang="en">Smooth kinematic copies</span></h3>
+        <p data-lang="fr">Les drones distants n'ont plus ni physique ni contrôleur de vol. Ils sont interpolés (Hermite) sur l'horloge de l'émetteur, avec 100 ms de retard et 100 ms d'extrapolation au plus. Le ralenti de fin de course ne les dérègle plus.</p>
+        <p data-lang="en">Remote drones no longer run physics or a flight controller. They are interpolated (Hermite) on the sender's clock, with a 100 ms delay and at most 100 ms of extrapolation. The end-of-race slow motion no longer throws them off.</p>
+      </div>
+      <div class="contribution">
+        <span class="num">04</span>
+        <h3><span data-lang="fr">Plus d'infos, moins d'octets</span><span data-lang="en">More data, fewer bytes</span></h3>
+        <p data-lang="fr">Le protocole transporte désormais ce qui était simulé localement, ou pas du tout : régime des moteurs, batterie, dégâts (bras, hélices, caméra), sons d'impact et température des moteurs.</p>
+        <p data-lang="en">The protocol now carries what used to be simulated locally, or not at all: motor RPM, battery, damage (arms, props, camera), impact sounds and motor temperature.</p>
+      </div>
+    </div>
+
+    <div class="tableau-boite" style="margin-top:32px">
+      <table class="tableau">
+        <caption><span data-lang="fr">Quelques valeurs répliquées, avant et après</span><span data-lang="en">Some replicated values, before and after</span></caption>
+        <thead><tr><th scope="col"><span data-lang="fr">Donnée</span><span data-lang="en">Data</span></th><th scope="col"><span data-lang="fr">Avant</span><span data-lang="en">Before</span></th><th scope="col"><span data-lang="fr">Après</span><span data-lang="en">After</span></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Rotation</th><td><span data-lang="fr">3 doubles, 24 octets</span><span data-lang="en">3 doubles, 24 bytes</span></td><td><span data-lang="fr">Smallest-three, 47 bits (6 octets)</span><span data-lang="en">Smallest-three, 47 bits (6 bytes)</span></td></tr>
+          <tr><th scope="row"><span data-lang="fr">Manches</span><span data-lang="en">Sticks</span></th><td><span data-lang="fr">4 RPC par frame</span><span data-lang="en">4 RPCs per frame</span></td><td><span data-lang="fr">4 × 8 bits dans l'état</span><span data-lang="en">4 × 8 bits inside the state</span></td></tr>
+          <tr><th scope="row"><span data-lang="fr">Horodatage</span><span data-lang="en">Timestamp</span></th><td><span data-lang="fr">Aucun : date de réception</span><span data-lang="en">None: time of receipt</span></td><td><span data-lang="fr">Horloge de l'émetteur, 16 bits</span><span data-lang="en">Sender's clock, 16 bits</span></td></tr>
+          <tr><th scope="row"><span data-lang="fr">Vitesse angulaire</span><span data-lang="en">Angular velocity</span></th><td><span data-lang="fr">Envoyée</span><span data-lang="en">Sent</span></td><td><span data-lang="fr">Retirée, recalculée par la copie</span><span data-lang="en">Dropped, rebuilt by the copy</span></td></tr>
+          <tr><th scope="row"><span data-lang="fr">Moteurs</span><span data-lang="en">Motors</span></th><td><span data-lang="fr">Simulés sur chaque machine</span><span data-lang="en">Simulated on every machine</span></td><td><span data-lang="fr">21 bits par moteur</span><span data-lang="en">21 bits per motor</span></td></tr>
+          <tr><th scope="row"><span data-lang="fr">Batterie</span><span data-lang="en">Battery</span></th><td><span data-lang="fr">Simulée localement</span><span data-lang="en">Simulated locally</span></td><td><span data-lang="fr">46 bits à 5 Hz, 1 bit sinon</span><span data-lang="en">46 bits at 5 Hz, 1 bit otherwise</span></td></tr>
+          <tr><th scope="row"><span data-lang="fr">Dégâts</span><span data-lang="en">Damage</span></th><td><span data-lang="fr">Non envoyés</span><span data-lang="en">Not sent</span></td><td><span data-lang="fr">79 bits si changement, 1 bit sinon</span><span data-lang="en">79 bits on change, 1 bit otherwise</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section blanche">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre"><span data-lang="fr">Résultats</span><span data-lang="en">Results</span></span>
+      <h2><span data-lang="fr">Mesuré, puis projeté à 8 joueurs</span><span data-lang="en">Measured, then projected to 8 players</span></h2>
+    </div>
+    <div class="graphes">
+      <figure class="graphe" role="img"
+              aria-label="Mesuré : l'hôte reçoit 6,6 ko/s avant contre 2,0 ko/s après ; il envoie 0,5 à 0,9 ko/s avant contre 2,0 à 2,3 ko/s après"
+              data-aria-fr="Mesuré : l'hôte reçoit 6,6 ko/s avant contre 2,0 ko/s après ; il envoie 0,5 à 0,9 ko/s avant contre 2,0 à 2,3 ko/s après"
+              data-aria-en="Measured: the host receives 6.6 kB/s before vs 2.0 kB/s after; it sends 0.5 to 0.9 kB/s before vs 2.0 to 2.3 kB/s after">
+        <figcaption><span data-lang="fr">Mesuré : débit vu par l'hôte, 1 client</span><span data-lang="en">Measured: bandwidth seen by the host, 1 client</span></figcaption>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">L'hôte reçoit, avant</span><span data-lang="en">Host receives, before</span><strong><span data-lang="fr">6,6 ko/s</span><span data-lang="en">6.6 kB/s</span></strong></div><div class="piste-barre"><div class="humain" style="width:83%"></div></div></div>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">L'hôte reçoit, après</span><span data-lang="en">Host receives, after</span><strong><span data-lang="fr">2,0 ko/s</span><span data-lang="en">2.0 kB/s</span></strong></div><div class="piste-barre"><div style="width:25%"></div></div></div>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">L'hôte envoie, avant</span><span data-lang="en">Host sends, before</span><strong><span data-lang="fr">0,5 – 0,9 ko/s</span><span data-lang="en">0.5 – 0.9 kB/s</span></strong></div><div class="piste-barre"><div class="humain" style="width:11%"></div></div></div>
+        <div class="barre-ligne"><div class="etiquettes"><span data-lang="fr">L'hôte envoie, après</span><span data-lang="en">Host sends, after</span><strong><span data-lang="fr">2,0 – 2,3 ko/s</span><span data-lang="en">2.0 – 2.3 kB/s</span></strong></div><div class="piste-barre"><div style="width:29%"></div></div></div>
+        <p class="note" data-lang="fr">Le client envoie trois fois moins. L'envoi de l'hôte augmente, car son état part maintenant à 30 Hz même à l'arrêt, alors qu'avant il ne partait qu'en cas de changement.</p>
+        <p class="note" data-lang="en">The client sends three times less. The host's upload goes up, because its state now goes out at 30 Hz even when idle, whereas before it was only sent on change.</p>
+      </figure>
+
+      <figure class="graphe" role="img"
+              aria-label="Estimé : envoi total de l'hôte selon le nombre de joueurs. À 8 joueurs, environ 296 ko/s avant contre 77 ko/s après."
+              data-aria-fr="Estimé : envoi total de l'hôte selon le nombre de joueurs. À 8 joueurs, environ 296 ko/s avant contre 77 ko/s après."
+              data-aria-en="Estimated: total host upload by player count. At 8 players, about 296 kB/s before vs 77 kB/s after.">
+        <figcaption><span data-lang="fr">Estimé : envoi de l'hôte selon le nombre de joueurs</span><span data-lang="en">Estimated: host upload by player count</span></figcaption>
+        <svg class="courbe" viewBox="0 0 420 260" aria-hidden="true">
+          <line x1="40" y1="220" x2="400" y2="220" stroke="#C9B8AE" stroke-width="1"/>
+          <line x1="40" y1="129" x2="400" y2="129" stroke="#8C7A80" stroke-width="1" stroke-dasharray="5 5"/>
+          <text x="44" y="122" font-size="11" fill="#6B585D">1 Mbit/s (125 ko/s)</text>
+          <polyline fill="none" stroke="#2A1A1F" stroke-width="3" stroke-linejoin="round" points="40,215 100,201 160,179 220,148 280,108 340,60 400,4"/>
+          <polyline fill="none" stroke="#F26B1D" stroke-width="4" stroke-linejoin="round" points="40,218 100,215 160,209 220,201 280,191 340,178 400,164"/>
+          <circle cx="400" cy="4" r="5" fill="#2A1A1F"/>
+          <circle cx="400" cy="164" r="6" fill="#F26B1D" stroke="#2A1A1F" stroke-width="2"/>
+          <g font-size="12" fill="#4A3A3F" text-anchor="middle">
+            <text x="40" y="238">2</text><text x="100" y="238">3</text><text x="160" y="238">4</text><text x="220" y="238">5</text><text x="280" y="238">6</text><text x="340" y="238">7</text><text x="400" y="238">8</text>
+          </g>
+        </svg>
+        <div class="legende-courbe">
+          <span><i style="background:#2A1A1F"></i><span data-lang="fr">Avant : ~296 ko/s à 8</span><span data-lang="en">Before: ~296 kB/s at 8</span></span>
+          <span><i style="background:#F26B1D"></i><span data-lang="fr">Après : ~77 ko/s à 8</span><span data-lang="en">After: ~77 kB/s at 8</span></span>
+        </div>
+        <p class="note" data-lang="fr">Nombre de joueurs en abscisse, hôte compris. Modèle tiré du code et des captures : l'envoi croît toujours avec le carré du nombre de clients, mais chaque drone coûte environ 4 fois moins. Il retombe bien sur les 2,0 à 2,3 ko/s mesurés à 2 joueurs.</p>
+        <p class="note" data-lang="en">Player count on the x-axis, host included. Model built from the code and captures: upload still grows with the square of the client count, but each drone costs about 4 times less. It matches the 2.0 to 2.3 kB/s measured at 2 players.</p>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre"><span data-lang="fr">La démarche</span><span data-lang="en">The process</span></span>
+      <h2><span data-lang="fr">18 lots, dans un ordre logique</span><span data-lang="en">18 batches, in a logical order</span></h2>
+    </div>
+    <ol class="frise">
+      <li>
+        <span class="date"><span data-lang="fr">1 · Protocole</span><span data-lang="en">1 · Protocol</span></span>
+        <strong><span data-lang="fr">L'état à 30 Hz</span><span data-lang="en">The 30 Hz state</span></strong>
+        <p data-lang="fr">Nouvel état horodaté, fin des RPC d'axes par frame, encodeurs regroupés.</p>
+        <p data-lang="en">New timestamped state, no more per-frame axis RPCs, encoders grouped together.</p>
+      </li>
+      <li>
+        <span class="date"><span data-lang="fr">2 · Copies</span><span data-lang="en">2 · Copies</span></span>
+        <strong><span data-lang="fr">Des drones sans physique</span><span data-lang="en">Drones without physics</span></strong>
+        <p data-lang="fr">Copies kinématiques, moteurs et sons pilotés par l'état reçu, horloge réseau en temps réel.</p>
+        <p data-lang="en">Kinematic copies, motors and sounds driven by the received state, real-time network clock.</p>
+      </li>
+      <li>
+        <span class="date"><span data-lang="fr">3 · Données</span><span data-lang="en">3 · Data</span></span>
+        <strong><span data-lang="fr">Ce qui manquait</span><span data-lang="en">What was missing</span></strong>
+        <p data-lang="fr">Sons d'impact, respawn, batterie, dégâts, température des moteurs.</p>
+        <p data-lang="en">Impact sounds, respawn, battery, damage, motor temperature.</p>
+      </li>
+      <li>
+        <span class="date"><span data-lang="fr">4 · Stabilité</span><span data-lang="en">4 · Stability</span></span>
+        <strong><span data-lang="fr">Les crashs</span><span data-lang="en">The crashes</span></strong>
+        <p data-lang="fr">Crashs corrigés au changement de map et en build Shipping, quand l'état arrivait avant l'initialisation.</p>
+        <p data-lang="en">Fixed crashes on map change and in Shipping builds, when the state arrived before setup.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" style="background:var(--cacao);color:var(--creme)">
+  <div class="conteneur">
+    <div class="section-tete">
+      <span class="surtitre" style="color:var(--tournesol)"><span data-lang="fr">Compromis et limites</span><span data-lang="en">Trade-offs and limits</span></span>
+      <h2><span data-lang="fr">Ce qu'il reste à vérifier</span><span data-lang="en">What still needs checking</span></h2>
+    </div>
+    <div class="colonnes">
+      <div class="bloc-sombre">
+        <span class="num">01</span>
+        <h3><span data-lang="fr">Un choix assumé : le pilote fait autorité</span><span data-lang="en">A deliberate choice: the pilot is authoritative</span></h3>
+        <p data-lang="fr">Le multijoueur de TrypFPV faisait déjà confiance au client : il sert à voler entre amis, sans mode compétitif, donc la triche n'est pas un enjeu. J'ai poussé ce choix jusqu'au bout : l'hôte ne resimule plus rien et se contente de relayer l'état reçu.</p>
+        <p data-lang="en">TrypFPV's multiplayer already trusted the client: it's for flying with friends, with no competitive mode, so cheating isn't a concern. I took that choice all the way: the host no longer re-simulates anything and simply relays the received state.</p>
+      </div>
+      <div class="bloc-sombre">
+        <span class="num">02</span>
+        <h3><span data-lang="fr">8 joueurs : à confirmer</span><span data-lang="en">8 players: to be confirmed</span></h3>
+        <p data-lang="fr">Le gain du client vers l'hôte est mesuré. Celui à 8 joueurs est estimé : il reste à le tester en vrai, avec de la perte de paquets et une latence élevée.</p>
+        <p data-lang="en">The client-to-host gain is measured. The 8-player gain is estimated: it still needs a real test, with packet loss and high latency.</p>
+      </div>
+      <div class="bloc-sombre">
+        <span class="num">03</span>
+        <h3><span data-lang="fr">Ralentir à l'arrêt</span><span data-lang="en">Slow down when idle</span></h3>
+        <p data-lang="fr">Un drone posé coûte autant qu'un drone en vol, car son horodatage change à chaque envoi. Baisser la cadence à l'arrêt allégerait l'hôte dans les lobbys.</p>
+        <p data-lang="en">A grounded drone costs as much as a flying one, since its timestamp changes on every send. Lowering the rate when idle would lighten the host in lobbies.</p>
+      </div>
+    </div>
+    <p class="liens" style="margin-top:36px"><a href="rollerloop.html" style="color:var(--tournesol)"><span data-lang="fr">Projet suivant : RollerLoop →</span><span data-lang="en">Next project: RollerLoop →</span></a></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="pied" id="contact" style="border-top:2px solid #4E3C42">
+  <div class="conteneur" style="padding-top:48px;padding-bottom:48px">
+    <div class="pied-texte">
+      <h2 style="font-size:30px"><span data-lang="fr">Une question sur ce projet ?</span><span data-lang="en">Questions about this project?</span></h2>
+    </div>
+    <div class="actions">
+      <a class="bouton clair" href="mailto:antoine.mordant@free.fr">antoine.mordant@free.fr</a>
+      <a class="bouton contour" href="https://www.linkedin.com/in/antoine-mordant-68a5a8266/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

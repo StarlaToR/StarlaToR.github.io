@@ -42,7 +42,7 @@
 <section class="projet-intro">
   <div class="conteneur">
     <figure class="media" style="margin:0">
-      <video src="../assets/video/rollerloop-camera.mp4" poster="../assets/img/rollerloop/poster-camera.webp" autoplay muted loop playsinline
+      <video src="../assets/video/rollerloop-camera.mp4" poster="../assets/img/rollerloop/poster-camera.webp" data-autoplay muted loop playsinline preload="none"
              aria-label="Extrait du premier niveau : virages, sauts et chutes"
              data-aria-fr="Extrait du premier niveau : virages, sauts et chutes"
              data-aria-en="First level excerpt: turns, jumps and drops"></video>
@@ -78,7 +78,7 @@
   <div class="conteneur">
     <div class="section-tete">
       <span class="surtitre"><span data-lang="fr">Ce que j'ai codé</span><span data-lang="en">What I built</span></span>
-      <h2><span data-lang="fr">Un comportement par axe</span><span data-lang="en">One behaviour per axis</span></h2>
+      <h2><span data-lang="fr">Un comportement par axe, et plus encore</span><span data-lang="en">One behaviour per axis, and more</span></h2>
     </div>
     <ol class="etapes schemas">
       <li>
@@ -129,6 +129,22 @@
           <p data-lang="en">During a drift, the camera drops and slides sideways: the ground rushes past faster on screen, and the player stays clearly visible.</p>
         </div>
       </li>
+      <li>
+        <img src="../assets/img/rollerloop/jeu-course.webp" width="1200" height="714" loading="lazy" alt="Course à pleine vitesse dans RollerLoop" data-alt-fr="Course à pleine vitesse dans RollerLoop" data-alt-en="Racing at full speed in RollerLoop">
+        <div class="texte">
+          <h3><span data-lang="fr">Des secousses sur mesure</span><span data-lang="en">Custom camera shakes</span></h3>
+          <p data-lang="fr">Les secousses d'Unreal ne se modifiaient pas en cours de jeu. J'ai écrit les miennes, en bruit de Perlin : un tremblement permanent qui grandit avec la vitesse, et des secousses ponctuelles au choc contre un mur, à l'atterrissage et aux boosts.</p>
+          <p data-lang="en">Unreal's shakes couldn't be changed at runtime. I wrote my own, based on Perlin noise: a constant tremor that grows with speed, plus one-off shakes on wall hits, landings and boosts.</p>
+        </div>
+      </li>
+      <li>
+        <img src="../assets/img/rollerloop/jeu-personnage.webp" width="1200" height="747" loading="lazy" alt="Le personnage vu de côté par une caméra de cinématique" data-alt-fr="Le personnage vu de côté par une caméra de cinématique" data-alt-en="The character seen from the side by a cinematic camera">
+        <div class="texte">
+          <h3><span data-lang="fr">Des caméras de cinématique</span><span data-lang="en">Cinematic cameras</span></h3>
+          <p data-lang="fr">Pour les moments contemplatifs, des caméras dédiées prennent le relais : un tour autour du joueur, une vue de côté, puis un fondu vers la caméra de course. C'est le cas de la transition vers le premier niveau, en bas de page.</p>
+          <p data-lang="en">For contemplative moments, dedicated cameras take over: an orbit around the player, a side view, then a blend back to the racing camera. The transition into the first level, at the bottom of this page, uses them.</p>
+        </div>
+      </li>
     </ol>
   </div>
 </section>
@@ -138,6 +154,8 @@
     <figure>
       <div class="media"><img src="../assets/img/rollerloop/courbe-drift.webp" width="708" height="537" loading="lazy" alt="Exemple de courbe de réglage : transition de distance selon l'intensité du drift" data-alt-fr="Exemple de courbe de réglage : transition de distance selon l'intensité du drift" data-alt-en="Example tuning curve: distance transition over drift intensity"></div>
       <figcaption><span data-lang="fr">Une des courbes de réglage : la transition vers la distance de drift selon l'intensité du virage.</span><span data-lang="en">One of the tuning curves: the blend toward drift distance over turn intensity.</span></figcaption>
+      <div class="media" style="margin-top:18px"><img src="../assets/img/rollerloop/debug-variables.webp" width="524" height="271" loading="lazy" alt="Data Asset de débogage : une case par catégorie de logs de la caméra" data-alt-fr="Data Asset de débogage : une case par catégorie de logs de la caméra" data-alt-en="Debug Data Asset: one checkbox per camera log category" style="aspect-ratio:auto"></div>
+      <figcaption><span data-lang="fr">Le Data Asset de débogage : une case par feature à afficher dans les logs.</span><span data-lang="en">The debug Data Asset: one checkbox per feature to log.</span></figcaption>
     </figure>
     <div class="prose">
       <span class="surtitre"><span data-lang="fr">Pensé pour les designers</span><span data-lang="en">Built for designers</span></span>
@@ -146,6 +164,8 @@
       <p data-lang="en">All the logic is in C++. Each behaviour relies on <strong>curves</strong> (over speed, slope, drift intensity…) grouped in a <strong>Data Asset</strong>.</p>
       <p data-lang="fr">On peut ainsi créer plusieurs profils de caméra et ajuster le ressenti en direct. J'ai travaillé en binôme avec un game designer : je codais les comportements, il les réglait, et cette complémentarité nous a évité beaucoup d'allers-retours.</p>
       <p data-lang="en">This makes it easy to create several camera profiles and tune the feel live. I worked in a pair with a game designer: I coded the behaviours, he tuned them, and that complementarity saved us a lot of back-and-forth.</p>
+      <p data-lang="fr">Pour déboguer, j'ai ajouté un <strong>système de logs</strong> piloté lui aussi par un Data Asset : un booléen par feature de la caméra affiche à l'écran ses statistiques et ses paramètres, sans recompiler.</p>
+      <p data-lang="en">For debugging, I added a <strong>logging system</strong>, also driven by a Data Asset: one boolean per camera feature prints its stats and parameters on screen, with no recompile.</p>
     </div>
   </div>
 </section>
@@ -182,8 +202,8 @@
     <div class="prose" style="color:#E9D9CF">
       <span class="surtitre" style="color:var(--tournesol)"><span data-lang="fr">En jeu</span><span data-lang="en">In game</span></span>
       <h2 style="color:var(--creme);font-size:clamp(26px,3vw,36px)"><span data-lang="fr">Du tutoriel au premier niveau</span><span data-lang="en">From tutorial to the first level</span></h2>
-      <p data-lang="fr">La transition entre le tutoriel et le premier niveau : la piste se construit devant le joueur, entre deux baleines volantes.</p>
-      <p data-lang="en">The transition from the tutorial to the first level: the track builds itself in front of the player, between two flying whales.</p>
+      <p data-lang="fr">La transition entre le tutoriel et le premier niveau, filmée par une de mes caméras de cinématique : la piste se construit devant le joueur, entre deux baleines volantes.</p>
+      <p data-lang="en">The transition from the tutorial to the first level, filmed by one of my cinematic cameras: the track builds itself in front of the player, between two flying whales.</p>
       <p class="liens"><a href="https://isart-digital.itch.io/rollerloop" target="_blank" rel="noopener" style="color:var(--tournesol)"><span data-lang="fr">Jouer sur itch.io ↗</span><span data-lang="en">Play on itch.io ↗</span></a> <a href="../projets/ai-drone-flight.html" style="color:var(--creme)"><span data-lang="fr">Projet suivant : AI Drone Flight →</span><span data-lang="en">Next project: AI Drone Flight →</span></a></p>
     </div>
     <figure>

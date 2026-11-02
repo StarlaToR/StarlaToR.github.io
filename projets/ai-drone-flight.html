@@ -42,11 +42,10 @@
 <section class="projet-intro">
   <div class="conteneur">
     <figure class="media" style="margin:0">
-      <!-- Vidéo à ajouter : <video src="../assets/video/drones-ia.mp4" poster="../assets/img/drone/piste.webp" controls muted playsinline preload="none"></video> -->
-      <img src="../assets/img/drone/piste.webp" width="1400" height="839"
-           alt="Piste générée : des portes le long d'une spline, sans sol"
-           data-alt-fr="Piste générée : des portes le long d'une spline, sans sol"
-           data-alt-en="Generated track: gates along a spline, with no ground">
+      <video src="../assets/video/drone-piste-obstacles.mp4" poster="../assets/img/drone/poster-piste-obstacles.webp" data-autoplay muted loop playsinline preload="none"
+             aria-label="Mon agent IA pilote un drone entre portes et obstacles dans TrypFPV"
+             data-aria-fr="Mon agent IA pilote un drone entre portes et obstacles dans TrypFPV"
+             data-aria-en="My AI agent flying a drone through gates and obstacles in TrypFPV"></video>
     </figure>
     <dl class="fiche">
       <div><dt><span data-lang="fr">Contexte</span><span data-lang="en">Context</span></dt><dd><span data-lang="fr">Mémoire de fin d'études ISART, avec Undead Battery</span><span data-lang="en">ISART master's thesis, with Undead Battery</span></dd></div>
@@ -228,6 +227,18 @@
     <div class="section-tete">
       <span class="surtitre"><span data-lang="fr">Résultats</span><span data-lang="en">Results</span></span>
       <h2><span data-lang="fr">200 essais par agent, face à un champion</span><span data-lang="en">200 runs per agent, against a champion</span></h2>
+    </div>
+    <div class="duo-videos">
+      <figure>
+        <div class="media"><video src="../assets/video/drone-piste-simple.mp4" poster="../assets/img/drone/poster-piste-simple.webp" controls muted loop playsinline preload="metadata"
+             aria-label="Course sur piste simple, sans obstacles" data-aria-fr="Course sur piste simple, sans obstacles" data-aria-en="Race on the simple track, no obstacles"></video></div>
+        <figcaption><strong><span data-lang="fr">Piste simple</span><span data-lang="en">Simple track</span></strong> · <span data-lang="fr">89 % de courses terminées</span><span data-lang="en">89% of races completed</span></figcaption>
+      </figure>
+      <figure>
+        <div class="media"><video src="../assets/video/drone-piste-obstacles.mp4" poster="../assets/img/drone/poster-piste-obstacles.webp" controls muted loop playsinline preload="metadata"
+             aria-label="Course sur piste avec obstacles" data-aria-fr="Course sur piste avec obstacles" data-aria-en="Race on the obstacle track"></video></div>
+        <figcaption><strong><span data-lang="fr">Piste avec obstacles (mon agent)</span><span data-lang="en">Obstacle track (my agent)</span></strong> · <span data-lang="fr">79 % de courses terminées</span><span data-lang="en">79% of races completed</span></figcaption>
+      </figure>
     </div>
     <div class="graphes">
       <figure class="graphe" role="img"

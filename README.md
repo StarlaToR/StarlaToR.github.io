@@ -23,5 +23,7 @@ Conseil : MP4 H.264, 1280 px de large, 10 à 30 s, sans son, moins de 8 Mo.
 ## Reste à faire
 - [ ] Déposer `assets/docs/CV_Antoine_Mordant.pdf`
 - [x] Vidéos RollerLoop (caméra, intro)
-- [ ] Vidéos : drones IA, réplication avant/après, showreel
-- [ ] Mesurer le gain de la refonte de la réplication et écrire son étude de cas
+- [x] Vidéos AI Drone Flight (piste simple, piste avec obstacles)
+- [ ] Vidéos : réplication avant/après, showreel
+- [x] Étude de cas de la réplication TrypFPV (`projets/trypfpv-replication.html`)
+- [ ] Confirmer le gain à 8 joueurs par un vrai test

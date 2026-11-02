@@ -23,6 +23,7 @@
     <nav class="nav" aria-label="Navigation">
       <a href="#projets"><span data-lang="fr">Projets</span><span data-lang="en">Projects</span></a>
       <a href="#parcours"><span data-lang="fr">Parcours</span><span data-lang="en">Background</span></a>
+      <a href="#apropos"><span data-lang="fr">À propos</span><span data-lang="en">About</span></a>
       <a href="#contact">Contact</a>
       <a class="pilule" href="assets/docs/CV_Antoine_Mordant.pdf" target="_blank" rel="noopener">CV (PDF)</a>
       <div class="langues" role="group" aria-label="Langue / Language">
@@ -50,27 +51,25 @@
         <a class="bouton" href="assets/docs/CV_Antoine_Mordant.pdf" target="_blank" rel="noopener"><span data-lang="fr">Télécharger le CV</span><span data-lang="en">Download my resume</span></a>
       </div>
     </div>
-    <div class="heros-visuel">
-      <figure class="cadre" style="margin:0">
-        <!-- Quand la showreel sera prête, remplacer l'<img> par :
-        <video src="assets/video/showreel.mp4" poster="assets/img/drone/piste.webp" controls muted playsinline preload="none"></video> -->
-        <img src="assets/img/drone/piste.webp" width="1400" height="839"
-             alt="Piste d'entraînement de l'IA dans TrypFPV : des portes reliées par une spline"
-             data-alt-fr="Piste d'entraînement de l'IA dans TrypFPV : des portes reliées par une spline"
-             data-alt-en="AI training track in TrypFPV: gates linked by a spline">
-        <figcaption class="legende">
-          <span data-lang="fr">Une piste générée pour entraîner mes pilotes IA, dans TrypFPV.</span>
-          <span data-lang="en">A generated track used to train my AI pilots, inside TrypFPV.</span>
-        </figcaption>
-      </figure>
-      <img class="portrait" src="assets/img/antoine.webp" width="400" height="400" alt="Antoine Mordant">
-    </div>
+    <img class="heros-portrait" src="assets/img/antoine.webp" width="400" height="400" alt="Antoine Mordant">
+  </div>
+  <div class="conteneur showreel">
+    <figure class="cadre">
+      <video src="assets/video/showreel.mp4" poster="assets/img/poster-showreel.webp" data-autoplay muted loop playsinline controls preload="none"
+             aria-label="Showreel : RollerLoop, AI Drone Flight et TrypFPV"
+             data-aria-fr="Showreel : RollerLoop, AI Drone Flight et TrypFPV"
+             data-aria-en="Showreel: RollerLoop, AI Drone Flight and TrypFPV"></video>
+      <figcaption class="legende">
+        <span data-lang="fr">Showreel · 40 secondes sur mes trois projets phares</span>
+        <span data-lang="en">Showreel · 40 seconds across my three featured projects</span>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
 <section class="chiffres" aria-label="Chiffres clés">
   <div class="conteneur">
-    <div class="chiffre"><strong>89 %</strong><span data-lang="fr">de courses terminées par mon pilote IA</span><span data-lang="en">of races completed by my AI pilot</span></div>
+    <div class="chiffre"><strong>79 %</strong><span data-lang="fr">de courses terminées entre les obstacles par mon agent IA</span><span data-lang="en">of races completed through obstacles by my AI agent</span></div>
     <div class="chiffre"><strong>2 <span data-lang="fr">ans</span><span data-lang="en">years</span></strong><span data-lang="fr">sur un jeu Steam en production</span><span data-lang="en">on a live Steam game</span></div>
     <div class="chiffre"><strong>PS5</strong><span data-lang="fr">plugin intégré, moteur recompilé</span><span data-lang="en">plugin integrated, engine rebuilt</span></div>
     <div class="chiffre"><strong>990</strong><span data-lang="fr">au TOEIC, anglais C1</span><span data-lang="en">TOEIC score, C1 English</span></div>
@@ -85,31 +84,6 @@
     </div>
 
     <div class="phares">
-
-      <article class="phare">
-        <a class="phare-media media" href="projets/ai-drone-flight.html">
-          <!-- Vidéo à ajouter : <video src="assets/video/drones-ia.mp4" poster="assets/img/drone/piste-obstacles.webp" autoplay muted loop playsinline></video> -->
-          <img src="assets/img/drone/piste-obstacles.webp" width="1400" height="735" loading="lazy"
-               alt="Piste avec obstacles utilisée pour l'entraînement"
-               data-alt-fr="Piste avec obstacles utilisée pour l'entraînement"
-               data-alt-en="Track with obstacles used for training">
-        </a>
-        <div class="phare-texte">
-          <ul class="tags"><li>UE5</li><li>Learning Agents</li><li>PPO</li><li>C++</li></ul>
-          <h3>AI Drone Flight</h3>
-          <p data-lang="fr">Mémoire de fin d'études avec Undead Battery, en trio. Des pilotes de drones entraînés par renforcement avec la vraie physique de TrypFPV, sur des courses qu'ils n'ont jamais vues. J'ai construit la passerelle vers le projet TrypFPV, les courses procédurales et l'agent qui gère les obstacles.</p>
-          <p data-lang="en">Master's thesis with Undead Battery, in a team of three. Drone pilots trained with reinforcement learning on TrypFPV's real physics, racing on tracks they have never seen. I built the bridge into the TrypFPV project, the procedural tracks and the agent that handles obstacles.</p>
-          <div class="mini-stats">
-            <div class="mini-stat"><strong>89 %</strong><span data-lang="fr">réussite sans obstacles</span><span data-lang="en">success, no obstacles</span></div>
-            <div class="mini-stat"><strong>79 %</strong><span data-lang="fr">réussite avec obstacles</span><span data-lang="en">success, with obstacles</span></div>
-            <div class="mini-stat"><strong>200</strong><span data-lang="fr">essais par agent</span><span data-lang="en">runs per agent</span></div>
-          </div>
-          <div class="liens">
-            <a href="projets/ai-drone-flight.html"><span data-lang="fr">Lire l'étude de cas →</span><span data-lang="en">Read the case study →</span></a>
-            <a class="neutre" href="assets/docs/AIDroneFlight_Memoire.pdf" target="_blank" rel="noopener"><span data-lang="fr">Mémoire (PDF, en anglais)</span><span data-lang="en">Thesis (PDF)</span></a>
-          </div>
-        </div>
-      </article>
 
       <article class="phare inverse">
         <div class="phare-media">
@@ -146,19 +120,47 @@
         <div class="phare-texte">
           <ul class="tags"><li>UE5</li><li><span data-lang="fr">Réplication réseau</span><span data-lang="en">Network replication</span></li><li>C++</li><li>Unreal Insights</li></ul>
           <h3><span data-lang="fr">TrypFPV : refonte de la réplication des drones</span><span data-lang="en">TrypFPV: drone replication rework</span></h3>
-          <p data-lang="fr">Sur le simulateur de drone FPV d'Undead Battery (Steam), j'ai revu la façon dont les drones sont synchronisés en multijoueur. Le compromis assumé : chaque client fait autorité sur son propre drone, en échange d'une simulation bien plus légère.</p>
-          <p data-lang="en">On Undead Battery's FPV drone simulator (Steam), I reworked how drones are synchronised in multiplayer. The deliberate trade-off: each client is authoritative over its own drone, in exchange for a much lighter simulation.</p>
+          <p data-lang="fr">Sur le simulateur de drone FPV d'Undead Battery (Steam), j'ai revu la façon dont les drones sont synchronisés en multijoueur. Sans mode compétitif, le jeu fait confiance au pilote : chaque client simule son drone, et l'hôte se contente de relayer.</p>
+          <p data-lang="en">On Undead Battery's FPV drone simulator (Steam), I reworked how drones are synchronised in multiplayer. With no competitive mode, the game trusts the pilot: each client simulates its own drone, and the host simply relays.</p>
           <p data-lang="fr">Avant cela : features multijoueur en C++, API Steam et profil joueur à débloquer par des quêtes, builds macOS remis en état, Blueprints migrés vers C++.</p>
           <p data-lang="en">Before that: multiplayer features in C++, Steam API and a player profile unlocked through quests, macOS builds fixed, Blueprints migrated to C++.</p>
+          <div class="mini-stats">
+            <div class="mini-stat"><strong>−70 %</strong><span data-lang="fr">flux client → hôte (mesuré)</span><span data-lang="en">client → host traffic (measured)</span></div>
+            <div class="mini-stat"><strong>−74 %</strong><span data-lang="fr">envoi de l'hôte à 8 (estimé)</span><span data-lang="en">host upload at 8 (estimated)</span></div>
+            <div class="mini-stat"><strong><span data-lang="fr">1 sur 8</span><span data-lang="en">1 of 8</span></strong><span data-lang="fr">physiques simulées par machine</span><span data-lang="en">physics sims per machine</span></div>
+          </div>
           <div class="liens">
+            <a href="projets/trypfpv-replication.html"><span data-lang="fr">Lire l'étude de cas →</span><span data-lang="en">Read the case study →</span></a>
             <a class="neutre" href="https://store.steampowered.com/app/1881200/" target="_blank" rel="noopener"><span data-lang="fr">TrypFPV sur Steam ↗</span><span data-lang="en">TrypFPV on Steam ↗</span></a>
           </div>
         </div>
       </article>
 
       <article class="phare">
+        <a class="phare-media media" href="projets/ai-drone-flight.html">
+          <video src="assets/video/drone-piste-obstacles.mp4" poster="assets/img/drone/poster-piste-obstacles.webp" data-autoplay muted loop playsinline preload="none"
+                 aria-label="Mon agent IA pilote un drone sur une piste avec obstacles" data-aria-fr="Mon agent IA pilote un drone sur une piste avec obstacles" data-aria-en="My AI agent flying a drone on a track with obstacles"></video>
+        </a>
+        <div class="phare-texte">
+          <ul class="tags"><li>UE5</li><li>Learning Agents</li><li>PPO</li><li>C++</li></ul>
+          <h3>AI Drone Flight</h3>
+          <p data-lang="fr">Mémoire de fin d'études avec Undead Battery, en trio. Des pilotes de drones entraînés par renforcement avec la vraie physique de TrypFPV, sur des courses qu'ils n'ont jamais vues. J'ai construit la passerelle vers le projet TrypFPV, les courses procédurales et l'agent qui gère les obstacles.</p>
+          <p data-lang="en">Master's thesis with Undead Battery, in a team of three. Drone pilots trained with reinforcement learning on TrypFPV's real physics, racing on tracks they have never seen. I built the bridge into the TrypFPV project, the procedural tracks and the agent that handles obstacles.</p>
+          <div class="mini-stats">
+            <div class="mini-stat"><strong>79 %</strong><span data-lang="fr">mon agent, avec obstacles</span><span data-lang="en">my agent, with obstacles</span></div>
+            <div class="mini-stat"><strong>89 %</strong><span data-lang="fr">piste simple (équipe)</span><span data-lang="en">simple track (team)</span></div>
+            <div class="mini-stat"><strong>200</strong><span data-lang="fr">essais par agent</span><span data-lang="en">runs per agent</span></div>
+          </div>
+          <div class="liens">
+            <a href="projets/ai-drone-flight.html"><span data-lang="fr">Lire l'étude de cas →</span><span data-lang="en">Read the case study →</span></a>
+            <a class="neutre" href="assets/docs/AIDroneFlight_Memoire.pdf" target="_blank" rel="noopener"><span data-lang="fr">Mémoire (PDF, en anglais)</span><span data-lang="en">Thesis (PDF)</span></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="phare inverse">
         <a class="phare-media media" href="projets/rollerloop.html">
-          <video src="assets/video/rollerloop-camera.mp4" poster="assets/img/rollerloop/poster-camera.webp" autoplay muted loop playsinline preload="metadata"
+          <video src="assets/video/rollerloop-camera.mp4" poster="assets/img/rollerloop/poster-camera.webp" data-autoplay muted loop playsinline preload="none"
                  aria-label="RollerLoop : la caméra en course" data-aria-fr="RollerLoop : la caméra en course" data-aria-en="RollerLoop: the camera in a race"></video>
         </a>
         <div class="phare-texte">
@@ -257,7 +259,25 @@
   </div>
 </section>
 
-<section class="section peche" id="parcours" style="border-top:0">
+<section class="section blanche" id="apropos" style="border-top:0">
+  <div class="conteneur apropos">
+    <img class="apropos-photo" src="assets/img/antoine.webp" width="400" height="400" alt="Antoine Mordant" loading="lazy">
+    <div class="apropos-texte">
+      <span class="surtitre"><span data-lang="fr">À propos</span><span data-lang="en">About</span></span>
+      <h2><span data-lang="fr">En dehors du code</span><span data-lang="en">Away from the code</span></h2>
+      <p data-lang="fr">Je vis à Montreuil et je travaille en télétravail depuis 2024. J'ai travaillé dans des équipes de 3 à 20 personnes, aux côtés de game designers, d'artistes et même de chercheurs au CEA.</p>
+      <p data-lang="en">I live near Paris and have worked remotely since 2024. I've worked in teams of 3 to 20 people, alongside game designers, artists and even researchers at the CEA.</p>
+      <ul class="interets">
+        <li><strong><span data-lang="fr">Water-polo</span><span data-lang="en">Water polo</span></strong><span data-lang="fr">7 ans en compétition</span><span data-lang="en">7 years of competition</span></li>
+        <li><strong><span data-lang="fr">Guitare électrique</span><span data-lang="en">Electric guitar</span></strong><span data-lang="fr">depuis 5 ans</span><span data-lang="en">for 5 years</span></li>
+        <li><strong><span data-lang="fr">Jeux du moment</span><span data-lang="en">Favourite games</span></strong><span>Hades, Dredge, Chants of Sennaar, Elden Ring, Overwatch</span></li>
+        <li><strong><span data-lang="fr">Lecture</span><span data-lang="en">Reading</span></strong><span data-lang="fr">manga, fantasy, SF</span><span data-lang="en">manga, fantasy, sci-fi</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section peche" id="parcours">
   <div class="conteneur">
     <div class="section-tete">
       <span class="surtitre"><span data-lang="fr">Parcours</span><span data-lang="en">Background</span></span>

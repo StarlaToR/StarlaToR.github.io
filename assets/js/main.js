@@ -46,11 +46,20 @@
     });
   });
 
-  // Respecte « réduire les animations » : pas de lecture auto des vidéos
-  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    document.querySelectorAll("video[autoplay]").forEach(function (v) {
-      v.removeAttribute("autoplay"); v.pause(); v.setAttribute("controls", "");
-    });
+  // Vidéos : lecture seulement quand elles sont visibles, jamais si « réduire les animations »
+  var videos = document.querySelectorAll("video[data-autoplay]");
+  var reduit = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduit || !("IntersectionObserver" in window)) {
+    videos.forEach(function (v) { v.setAttribute("controls", ""); v.setAttribute("preload", "metadata"); });
+  } else {
+    var obs = new IntersectionObserver(function (entrees) {
+      entrees.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else if (!v.paused) { v.pause(); }
+      });
+    }, { threshold: 0.35 });
+    videos.forEach(function (v) { obs.observe(v); });
   }
 
   // Filtres de la grille de projets
