@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; media-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>AI Drone Flight · Antoine Mordant</title>
 <meta name="description" content="Étude de cas : des pilotes de drones FPV entraînés par apprentissage par renforcement (PPO, Learning Agents) dans le simulateur TrypFPV sous Unreal Engine 5.">
 <meta property="og:title" content="AI Drone Flight · Antoine Mordant">
@@ -12,9 +14,6 @@
 <meta property="og:url" content="https://starlator.github.io/projets/ai-drone-flight.html">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&amp;family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>

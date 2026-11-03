@@ -1,4 +1,11 @@
 /* Portfolio Antoine Mordant — « arcade chaleureuse » */
+/* Polices hébergées sur le site (aucune requête vers Google) — licence OFL, voir assets/fonts/ */
+@font-face { font-family: "Poppins"; font-style: normal; font-weight: 600; font-display: swap; src: url("../fonts/poppins-600.woff") format("woff"); }
+@font-face { font-family: "Poppins"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/poppins-700.woff") format("woff"); }
+@font-face { font-family: "Poppins"; font-style: normal; font-weight: 800; font-display: swap; src: url("../fonts/poppins-800.woff") format("woff"); }
+@font-face { font-family: "Lato"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/lato-400.woff") format("woff"); }
+@font-face { font-family: "Lato"; font-style: normal; font-weight: 700; font-display: swap; src: url("../fonts/lato-700.woff") format("woff"); }
+
 :root {
   --creme: #FFF6EC;
   --peche: #FFE2CC;

@@ -6,7 +6,8 @@ Site statique (HTML/CSS/JS, sans build) publié sur GitHub Pages : https://starl
 - `index.html` : accueil (projets phares, autres projets, parcours, contact)
 - `projets/ai-drone-flight.html` : étude de cas AI Drone Flight
 - `assets/css/style.css` : styles (couleurs en haut du fichier)
-- `assets/js/main.js` : bascule FR/EN et filtres de projets
+- `assets/js/main.js` : bascule FR/EN, filtres de projets, lecture des vidéos à l'écran
+- `assets/fonts/` : Poppins et Lato hébergées sur le site (licence OFL)
 - `assets/docs/` : CV (FR : `CV_Antoine_Mordant.pdf`, EN : `CV_Antoine_Mordant_Eng.pdf`) et mémoire en PDF
 - `assets/video/` : vidéos (à ajouter)
 
@@ -28,3 +29,8 @@ Conseil : MP4 H.264, 1280 px de large, 10 à 30 s, sans son, moins de 8 Mo.
 - [ ] Clips à ajouter : réplication (hôte + client côte à côte), drift RollerLoop
 - [x] Étude de cas de la réplication TrypFPV (`projets/trypfpv-replication.html`)
 - [ ] Confirmer le gain à 8 joueurs par un vrai test
+
+## Sécurité
+Chaque page déclare une politique de sécurité (balise `Content-Security-Policy`) : le site ne charge que ses propres fichiers.
+Pour ajouter un service externe (vidéo YouTube, statistiques…), il faut l'autoriser dans cette balise, sur chaque page.
+Les CV publiés ici n'ont pas de numéro de téléphone.
